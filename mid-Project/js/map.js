@@ -258,6 +258,7 @@ d3.json("data/CA/Kern.geo.json").then(json => {
 				
                 d3.csv(filename).then((chartData) => {
 					let chart = new Chart(chartData);
+					chart.drawChart();
 				});
 			});
         

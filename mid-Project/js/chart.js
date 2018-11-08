@@ -15,7 +15,47 @@ class Chart {
     }
     
     drawChart(){
+
+
         let xScale = d3.scaleLinear()
+            .domain([0, this.CityData.length])
+            .range([this.margin.left, this.svgWidth - this.margin.right]);  
+        
+        let gSVG = this.svg.append('g');
+		let circles = gSVG.selectAll('g')
+                        .data(this.CityData)
+                        .enter()
+                        .append('g');
+
+		let cityCircles = circles.append("circle")
+			.attr("cy", (d, i)=>200 - d.Temperature_F * 2)
+			.attr("cx", function (d) {                
+                //console.log(d.created_in);
+                let date = d.created_in;
+                let date_list = date.split(" ");
+                let year = parseFloat(date_list[0].split("-")[0]);
+                let day = parseFloat(date_list[0].split("-")[2]);
+                let time = date_list[1];
+                let first_time = time.split("-")[0];
+                let first_time_list = first_time.split(":")
+                let hour = parseFloat(first_time_list[0]);
+                let minute = parseFloat(first_time_list[1]);
+                hour = hour + (minute / 60);
+                day = day + (hour / 24);
+
+                if(year == "2018" && day == 1){
+                    day = 32
+                }
+                console.log(day);
+                
+                return day * 10; 
+            })
+			.attr("r", 0.1)
+			.append("title")
+			.text(d=>d.created_in);
+        
+        
+        /*let xScale = d3.scaleLinear()
             .domain([0, this.CityData.length])
             .range([this.margin.left, this.svgWidth - this.margin.right]);        
 
@@ -53,7 +93,7 @@ class Chart {
             })
             .attr('class', function(d){
                 return that.chooseClass(d.PARTY)
-            });
+            });*/
         
 
 
