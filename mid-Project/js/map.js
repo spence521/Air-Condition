@@ -231,22 +231,34 @@ d3.json("data/CA/Kern.geo.json").then(json => {
 }
 
 	drawCitys(){
-		this.svg.selectAll('circle')
-			.data(this.coordinate)
-			.enter()
-			.append("circle")
+		let gSVG = this.svg.append('g');
+		let circles = gSVG.selectAll('g')
+                        .data(this.coordinate)
+                        .enter()
+                        .append('g');
+
+		let cityCircles = circles.append("circle")
 			.attr("cx", d=>d.x-15)
 			.attr("cy", d=>d.y-128)
 			.attr("r", 5)
 			.append("title")
-            .text(d=>d.n)
-            .on('mouseover', function(d) {
+			.text(d=>d.n);
+		
+		circles.selectAll('circle')
+			.on('mouseover', function(d) {
 				d3.select(this)
 					.style('fill', 'red')
 			})
 			.on('mouseout', function(d) {
-				d3.select(this)
-					.style('fill', 'white')
+				d3.select(this).style('fill', 'white');
+			})
+			.on('click', function(d){
+				let filename = "data/csv_files/Averaged_" + d.n.replace(" ", "_") + ".csv";
+				console.log(filename);
+				
+                d3.csv(filename).then((chartData) => {
+					let chart = new Chart(chartData);
+				});
 			});
         
         let lsvg = d3.select("#chart").append("svg")

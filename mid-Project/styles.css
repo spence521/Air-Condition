@@ -151,6 +151,7 @@ path.hidden {
 
 .header {
     width: 600px;
+    height: 20px;
     margin: auto;
     text-align: center;
 }
@@ -418,4 +419,8 @@ i.europe {
 .activeYear-background {
     font-size: 80px;
     opacity: .4;
+}
+.line-chart
+{
+    border: 1px solid lightgray;
 }
