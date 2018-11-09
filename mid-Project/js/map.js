@@ -2,7 +2,7 @@
 /** Class representing the map view. */
 class Map {
 
-    constructor(data) {
+    constructor(data, chart) {
         this.width = 500;
         this.height = 500;
 		this.svg = d3.select("#chart").append("svg").attr("width", this.width).attr("height", this.height);
@@ -13,6 +13,11 @@ class Map {
 		this.path = d3.geoPath().projection(this.projection);
 		
 		this.CA = data;
+		this.chart = chart;
+		this.chartCount = 0;
+		this.lineChartColors = ["Black", "Blue", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
+		this.previousNames = [];
+
 		/*
 		let data;
 		d3.json("data/CA.geo.json", data);
@@ -27,7 +32,7 @@ class Map {
 		this.Sacramento = d3.json("data/CA/Sacramento.geo.json");
 		this.Kern = d3.json("data/CA/Kern.geo.json");
 		*/
-		this.coordinate = [{x:160, y:226, n:"Redding"},{x:184, y:332, n:"Sacramento"},{x:143, y:366, n:"San Francisco"},
+		this.coordinate = [{x:160, y:226, n:"Eureka"},{x:184, y:332, n:"Sacramento"},{x:143, y:366, n:"San Francisco"},
 			{x:167, y:387, n:"San Jose"},{x:245, y:406, n:"Fresno"},{x:277, y:468, n:"Los Angeles"},
 			{x:282, y:523, n:"Bakersfield"},{x:324, y:567, n:"San Diego"}];
     }
@@ -231,6 +236,8 @@ d3.json("data/CA/Kern.geo.json").then(json => {
 }
 
 	drawCitys(){
+		var that = this;
+
 		let gSVG = this.svg.append('g');
 		let circles = gSVG.selectAll('g')
                         .data(this.coordinate)
@@ -254,17 +261,22 @@ d3.json("data/CA/Kern.geo.json").then(json => {
 			})
 			.on('click', function(d){
 				let filename = "data/csv_files/Averaged_" + d.n.replace(" ", "_") + ".csv";
-				console.log(filename);
-				
-                d3.csv(filename).then((chartData) => {
-					let chart = new Chart(chartData);
-					chart.drawChart();
-				});
+				//console.log(filename);
+				if(!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1)
+				{
+					console.log(that.chartCount);
+					let c_count = that.chartCount;
+					d3.csv(filename).then((chartData) => {
+						that.chart.drawChart(chartData, d.n, that.lineChartColors[c_count]);
+					});
+					that.chartCount = that.chartCount + 1;
+				}
+				that.previousNames.push(d.n);
 			});
         
         let lsvg = d3.select("#chart").append("svg")
 			.attr("width", this.width)
-			.attr("height", this.height);
+			.attr("height", 100);
 		
 		/*
 		let colorScale = d3.scaleLinear()

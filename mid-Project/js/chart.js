@@ -1,7 +1,7 @@
 class Chart {
 
-    constructor(data) {
-        this.width = 500;
+    constructor() {
+        this.width = 550;
         this.height = 500;
 		this.svg = d3.select("#chart").append("svg").attr("width", this.width).attr("height", this.height);
 		/*this.projection = d3.geoMercator() 
@@ -9,27 +9,128 @@ class Chart {
 		  .scale(2000)
 		  .translate([this.width/2, this.height/2]);*/
         this.path = d3.geoPath().projection(this.projection);
-        this.margin = {top: 10, right: 20, bottom: 30, left: 50};
+        this.margin = {top: 50, right: 20, bottom: 50, left: 100};
 		
-		this.CityData = data;
+        this.CityData;
+        this.cityName;
     }
     
-    drawChart(){
-
+    drawChart(data, cityName, color){
+        console.log(color);
+        this.CityData = data;
+        this.cityName = cityName;
 
         let xScale = d3.scaleLinear()
             .domain([0, this.CityData.length])
             .range([this.margin.left, this.svgWidth - this.margin.right]);  
         
         let gSVG = this.svg.append('g');
-		let circles = gSVG.selectAll('g')
+		let lines = gSVG.selectAll('g')
                         .data(this.CityData)
                         .enter()
                         .append('g');
+        //left
+        lines.append("line")
+            .style("stroke", "black")
+            .attr("x1", 51)
+            .attr("x2", 51)
+            .attr("y1", 1)
+            .attr("y2", this.height - 130)
+        //top
+        lines.append("line")
+            .style("stroke", "black")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", 1)
+            .attr("y2", 1) 
+        //right           
+        lines.append("line")
+            .style("stroke", "black")
+            .attr("x1", this.width - 1)
+            .attr("x2", this.width - 1)
+            .attr("y1", 1)
+            .attr("y2", this.height - 130)
+        //bottom
+        lines.append("line")
+            .style("stroke", "black")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 130)
+            .attr("y2", this.height - 130)
+        lines.append("text")
+            .attr("x", (this.width / 8) + 50)
+            .attr("y", 50)
+            .text("Temperature Average (" + this.cityName + ")")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "20px")
+            .attr("fill", "red");
+        lines.append("text")
+            .attr("x", (this.width / 8) + 50)
+            .attr("y", 75)
+            .text("December 2017")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "17px")
+            .attr("fill", "black");
+        lines.append("text")
+            .attr("x", 51)
+            .attr("y", this.height - 110)
+            .text("Dec 1")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+            
+        lines.append("text")
+            .attr("x", ((this.width - 51) / 2) + 25)
+            .attr("y", this.height - 110)
+            .text("Dec 15")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+        lines.append("text")
+            .attr("x", this.width - 35)
+            .attr("y", this.height - 110)
+            .text("Dec 31")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
 
-		let cityCircles = circles.append("circle")
-			.attr("cy", (d, i)=>200 - d.Temperature_F * 2)
-			.attr("cx", function (d) {                
+        lines.append("text")
+            .attr("x", 20)
+            .attr("y", this.height - 130)
+            .text("40F")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+        
+        
+        lines.append("text")
+            .attr("x", 20)
+            .attr("y", this.height - 260)
+            .text("57.5F")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+
+        lines.append("text")
+            .attr("x", 20)
+            .attr("y", this.height - 390)
+            .text("75F")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+
+        let cityLines = lines.append("line")
+            .style("stroke", color)
+            .attr("y2", (d, i)=>700 - (d.Temperature_F * 8))
+            .attr("y1", function(d, i) {
+                if(i < 1){
+                    return 700 - (d.Temperature_F * 8);
+                }
+                else{
+                    return 700 - (lines.data()[i-1].Temperature_F * 8)
+                }
+            })
+			.attr("x2", function (d, i) {                
                 //console.log(d.created_in);
                 let date = d.created_in;
                 let date_list = date.split(" ");
@@ -44,43 +145,20 @@ class Chart {
                 day = day + (hour / 24);
 
                 if(year == "2018" && day == 1){
-                    day = 32
-                }
-                console.log(day);
-                
-                return day * 10; 
+                    day = 32;
+                }                
+                return (day * 15) + 50; 
             })
-			.attr("r", 0.1)
-			.append("title")
-			.text(d=>d.created_in);
-        
-        
-        /*let xScale = d3.scaleLinear()
-            .domain([0, this.CityData.length])
-            .range([this.margin.left, this.svgWidth - this.margin.right]);        
-
-
-        var that = this;        
-        let gSVG = this.svg.append('g');        
-        var data = [[0, (this.svgHeight - 40)/2], [this.svgWidth, (this.svgHeight - 40)/2]];
-        var lineGenerator = d3.line();
-        var pathString = lineGenerator(data);
-        gSVG.append('path')
-            .attr('d', pathString)
-            .style("stroke-dasharray", ("3, 3"))
-            .attr('stroke', 'black');
-            
-        let years = gSVG.selectAll('g')
-                        .data(this.CityData)
-                        .enter()
-                        .append('g');
-        
-        let yearCircles = years.append('circle')
-            .attr('r', 15)
-            .attr('cx', function(d, i) {return xScale(i)} )
-            .attr('cy', function(d){
-                let date = toString(d.created_in);
-                let date_list = str.split(" ");
+			.attr("x1", function(d, i) {
+                let date;
+                if(i < 1){
+                    date = d.created_in;
+                }
+                else{
+                    date = lines.data()[i-1].created_in;
+                }
+                let date_list = date.split(" ");
+                let year = parseFloat(date_list[0].split("-")[0]);
                 let day = parseFloat(date_list[0].split("-")[2]);
                 let time = date_list[1];
                 let first_time = time.split("-")[0];
@@ -89,100 +167,13 @@ class Chart {
                 let minute = parseFloat(first_time_list[1]);
                 hour = hour + (minute / 60);
                 day = day + (hour / 24);
-                return day; 
+
+                if(year == "2018" && day == 1){
+                    day = 32
+                }                
+                return (day * 15) + 50;
             })
-            .attr('class', function(d){
-                return that.chooseClass(d.PARTY)
-            });*/
-        
-
-
-
-
-        /*var lineFunction = d3.svg.line()
-                         .x(function(d) { return d.Temperature_F; })
-                         .y(function(d){ 
-                             let date = toString(d.created_in);
-                             let date_list = str.split(" ");
-                             let day = parseFloat(date_list[0].split("-")[2]);
-                             let time = date_list[1];
-                             let first_time = time.split("-")[0];
-                             let first_time_list = first_time.split(":")
-                             let hour = parseFloat(first_time_list[0]);
-                             let minute = parseFloat(first_time_list[1]);
-                             hour = hour + (minute / 60);
-                             day = day + (hour / 24);
-                             return day; 
-                            })
-                         .interpolate("linear");
-        var svgContainer = d3.select("body").append("svg")
-                                            .attr("width", 200)
-                                            .attr("height", 200);
-        var lineGraph = svgContainer.append("path")
-                                    .attr("d", lineFunction(this.CityData))
-                                    .attr("stroke", "blue")
-                                    .attr("stroke-width", 2)
-                                    .attr("fill", "none");*/
-
-
-        /*let gSVG = this.svg.append('g');
-		let paths = gSVG.selectAll('g')
-                        .data(this.CityData)
-                        .enter()
-                        .append('g');
-
-		let cityPaths = paths.append("path")
-			.attr("cx", d=>d.x-15)
-			.attr("cy", d=>d.y-128)
-			.attr("r", 5)
 			.append("title")
-			.text(d=>d.n);
-
-
-
-        var svgWidth = 600, svgHeight = 400;
-        var margin = { top: 20, right: 20, bottom: 30, left: 50 };
-        var width = svgWidth - margin.left - margin.right;
-        var height = svgHeight - margin.top - margin.bottom;
-        var svg = d3.select('svg')
-            .attr("width", svgWidth)
-            .attr("height", svgHeight);
-        
-        var g = svg.append("g")
-            .attr("transform", 
-               "translate(" + margin.left + "," + margin.top + ")"
-            );
-        var x = d3.scaleTime().rangeRound([0, width]);
-        var y = d3.scaleLinear().rangeRound([height, 0]);
-        var line = d3.line()
-            .x(function(d) { return x(d.date)})
-            .y(function(d) { return y(d.value)})
-        x.domain(d3.extent(data, function(d) { return d.date }));
-        y.domain(d3.extent(data, function(d) { return d.value }));
-
-        g.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
-            .select(".domain")
-            .remove();
-        
-        g.append("g")
-            .call(d3.axisLeft(y))
-            .append("text")
-            .attr("fill", "#000")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .attr("text-anchor", "end")
-            .text("Price ($)");
-        g.append("path")
-            .datum(data)
-            .attr("fill", "none")
-            .attr("stroke", "steelblue")
-            .attr("stroke-linejoin", "round")
-            .attr("stroke-linecap", "round")
-            .attr("stroke-width", 1.5)
-            .attr("d", line);
-        */
+			.text(d=>d.Temperature_F);
     }
 }
