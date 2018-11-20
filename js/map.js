@@ -32,7 +32,7 @@ class Map {
 		this.Sacramento = d3.json("data/CA/Sacramento.geo.json");
 		this.Kern = d3.json("data/CA/Kern.geo.json");
 		*/
-		this.coordinate = [{x:160, y:226, n:"Eureka"},{x:184, y:332, n:"Sacramento"},{x:143, y:366, n:"San Francisco"},
+		this.coordinate = [{x:87, y:221, n:"Eureka"},{x:184, y:332, n:"Sacramento"},{x:143, y:366, n:"San Francisco"},
 			{x:167, y:387, n:"San Jose"},{x:245, y:406, n:"Fresno"},{x:277, y:468, n:"Los Angeles"},
 			{x:282, y:523, n:"Bakersfield"},{x:324, y:567, n:"San Diego"}];
     }
@@ -53,90 +53,10 @@ class Map {
 		    .attr("d", this.path )
 			.attr("fill", "white")
 			.attr("id", "CA");
-		/*
-		this.svg.selectAll("sha")
-		    .data(this.Shasta.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#000")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path )
-			.attr("fill", "white")
-			.attr("id", "sha");
 
-		this.svg.selectAll("fre")
-		    .data( this.Fresno.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#F00")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path )
-			.attr("fill", "white")
-			.attr("id", "fre");
-
-		this.svg.selectAll("sfr")
-		    .data( this.San_Francisco.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#000")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path )
-			.attr("fill", "white")
-			.attr("id", "srf");
-
-		this.svg.selectAll("la")
-		    .data( this.Los_Angeles.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#00F")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path)
-			.attr("fill", "white")
-			.attr("id", "la");
-
-		this.svg.selectAll("sd")
-		    .data( this.San_Diego.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#000")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path)
-			.attr("fill", "white")
-			.attr("id", "sd");
-
-		this.svg.selectAll("scla")
-		    .data( this.Santa_Clara.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#000")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path)
-			.attr("fill", "white")
-			.attr("id", "scla");
-			
-		this.svg.selectAll("sac")
-		    .data( this.Sacramento.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#000")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path)
-			.attr("fill", "white")
-			.attr("id", "sac");
-		
-		this.svg.selectAll("kern")
-		    .data( this.Kern.features )
-		    .enter()
-		    .append("path")
-		    .attr("stroke","#000")
-		    .attr("stroke-width",1)
-		    .attr("d", this.path)
-			.attr("fill", "white")
-			.attr("id", "kern");
-		*/
-d3.json("data/CA/Shasta.geo.json").then(json => {
+d3.json("data/CA/Humboldt.geo.json").then(json => {
   console.log(json.features);
-  let china= this.svg.selectAll("sha")
+  let china= this.svg.selectAll("Hum")
     .data( json.features )
     .enter()
     .append("path")
@@ -144,7 +64,7 @@ d3.json("data/CA/Shasta.geo.json").then(json => {
     .attr("stroke-width",1)
     .attr("d", this.path )
 	.attr("fill", "white")
-	.attr("id", "sha");
+	.attr("id", "Hum");
 });
 
 
