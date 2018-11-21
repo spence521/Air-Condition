@@ -3,7 +3,7 @@ class Chart {
     constructor() {
         this.width = 550;
         this.height = 500;
-		this.svg = d3.select("#chart").append("svg").attr("width", this.width).attr("height", this.height);
+		this.svg = d3.select("#waves").append("svg").attr("width", this.width).attr("height", this.height);
 		/*this.projection = d3.geoMercator() 
 		  .center([-119.0, 37.5])
 		  .scale(2000)
