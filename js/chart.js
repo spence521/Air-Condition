@@ -25,53 +25,49 @@ class Chart {
             .range([this.margin.left, this.svgWidth - this.margin.right]);  
         
         let gSVG = this.svg.append('g');
-		let lines = gSVG.selectAll('g')
-                        .data(this.CityData)
-                        .enter()
-                        .append('g');
         //left
-        lines.append("line")
+        gSVG.append("line")
             .style("stroke", "black")
             .attr("x1", 51)
             .attr("x2", 51)
             .attr("y1", 1)
             .attr("y2", this.height - 130)
         //top
-        lines.append("line")
+        gSVG.append("line")
             .style("stroke", "black")
             .attr("x1", 51)
             .attr("x2", this.width - 1)
             .attr("y1", 1)
             .attr("y2", 1) 
         //right           
-        lines.append("line")
+        gSVG.append("line")
             .style("stroke", "black")
             .attr("x1", this.width - 1)
             .attr("x2", this.width - 1)
             .attr("y1", 1)
             .attr("y2", this.height - 130)
         //bottom
-        lines.append("line")
+        gSVG.append("line")
             .style("stroke", "black")
             .attr("x1", 51)
             .attr("x2", this.width - 1)
             .attr("y1", this.height - 130)
             .attr("y2", this.height - 130)
-        lines.append("text")
+        /*gSVG.append("text")
             .attr("x", (this.width / 8) + 50)
             .attr("y", 50)
             .text("Temperature Average (" + this.cityName + ")")
             .attr("font-family", "sans-serif")
             .attr("font-size", "20px")
-            .attr("fill", "red");
-        lines.append("text")
+            .attr("fill", "red");*/
+        /*gSVG.append("text")
             .attr("x", (this.width / 8) + 50)
             .attr("y", 75)
             .text("December 2017")
             .attr("font-family", "sans-serif")
             .attr("font-size", "17px")
-            .attr("fill", "black");
-        lines.append("text")
+            .attr("fill", "black");*/
+        gSVG.append("text")
             .attr("x", 51)
             .attr("y", this.height - 110)
             .text("Dec 1")
@@ -79,14 +75,14 @@ class Chart {
             .attr("font-size", "10px")
             .attr("fill", "black");
             
-        lines.append("text")
+        gSVG.append("text")
             .attr("x", ((this.width - 51) / 2) + 25)
             .attr("y", this.height - 110)
             .text("Dec 15")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        lines.append("text")
+        gSVG.append("text")
             .attr("x", this.width - 35)
             .attr("y", this.height - 110)
             .text("Dec 31")
@@ -94,7 +90,7 @@ class Chart {
             .attr("font-size", "10px")
             .attr("fill", "black");
 
-        lines.append("text")
+        gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 130)
             .text("40F")
@@ -103,7 +99,7 @@ class Chart {
             .attr("fill", "black");
         
         
-        lines.append("text")
+        gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 260)
             .text("57.5F")
@@ -111,13 +107,19 @@ class Chart {
             .attr("font-size", "10px")
             .attr("fill", "black");
 
-        lines.append("text")
+        gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 390)
             .text("75F")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
+        
+        
+		let lines = gSVG.selectAll('g')
+                        .data(this.CityData)
+                        .enter()
+                        .append('g');
 
         let cityLines = lines.append("line")
             .style("stroke", color)
