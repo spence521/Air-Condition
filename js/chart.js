@@ -1,7 +1,7 @@
 class Chart {
 
     constructor() {
-        this.width = 550;
+        this.width = 800;
         this.height = 500;
 		this.svg = d3.select("#waves").append("svg").attr("width", this.width).attr("height", this.height);
 		/*this.projection = d3.geoMercator() 
@@ -13,10 +13,13 @@ class Chart {
 		
         this.CityData;
         this.cityName;
+        this.lines = null;
+        this.cityLines = null;
     }
     
     drawChart(data, cityName, color){
         console.log(color);
+        let that = this;
         this.CityData = data;
         this.cityName = cityName;
 
@@ -31,7 +34,7 @@ class Chart {
             .attr("x1", 51)
             .attr("x2", 51)
             .attr("y1", 1)
-            .attr("y2", this.height - 130)
+            .attr("y2", this.height - 20)
         //top
         gSVG.append("line")
             .style("stroke", "black")
@@ -45,14 +48,14 @@ class Chart {
             .attr("x1", this.width - 1)
             .attr("x2", this.width - 1)
             .attr("y1", 1)
-            .attr("y2", this.height - 130)
+            .attr("y2", this.height - 20)
         //bottom
         gSVG.append("line")
             .style("stroke", "black")
             .attr("x1", 51)
             .attr("x2", this.width - 1)
-            .attr("y1", this.height - 130)
-            .attr("y2", this.height - 130)
+            .attr("y1", this.height - 20)
+            .attr("y2", this.height - 20)
         /*gSVG.append("text")
             .attr("x", (this.width / 8) + 50)
             .attr("y", 50)
@@ -69,7 +72,7 @@ class Chart {
             .attr("fill", "black");*/
         gSVG.append("text")
             .attr("x", 51)
-            .attr("y", this.height - 110)
+            .attr("y", this.height - 10)
             .text("Dec 1")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
@@ -77,22 +80,30 @@ class Chart {
             
         gSVG.append("text")
             .attr("x", ((this.width - 51) / 2) + 25)
-            .attr("y", this.height - 110)
+            .attr("y", this.height - 10)
             .text("Dec 15")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
         gSVG.append("text")
             .attr("x", this.width - 35)
-            .attr("y", this.height - 110)
+            .attr("y", this.height - 10)
             .text("Dec 31")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
 
+        /*gSVG.append("text")
+            .attr("x", 20)
+            .attr("y", this.height - 10)
+            .text("23F")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");*/
+
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 130)
+            .attr("y", this.height - 51)
             .text("40F")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
@@ -101,7 +112,7 @@ class Chart {
         
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 260)
+            .attr("y", this.height - 186)
             .text("57.5F")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
@@ -109,27 +120,47 @@ class Chart {
 
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 390)
+            .attr("y", this.height - 321)
             .text("75F")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+            
+        gSVG.append("text")
+            .attr("x", 20)
+            .attr("y", this.height - 456)
+            .text("92.5F")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
         
         
-		let lines = gSVG.selectAll('g')
+		that.lines = gSVG.selectAll('g')
                         .data(this.CityData)
                         .enter()
                         .append('g');
+                        
+                        //lines.exit().remove();
+                        
+                        /*let newlines = lines 
+                        .enter()
+                        .append('line');
 
-        let cityLines = lines.append("line")
+                        lines=newlines.merge(lines);*/
+
+
+        
+
+
+        that.cityLines = that.lines.append("line")
             .style("stroke", color)
-            .attr("y2", (d, i)=>700 - (d.Temperature_F * 8))
+            .attr("y2", (d, i)=>770 - (d.Temperature_F * 8))
             .attr("y1", function(d, i) {
                 if(i < 1){
-                    return 700 - (d.Temperature_F * 8);
+                    return 770 - (d.Temperature_F * 8);
                 }
                 else{
-                    return 700 - (lines.data()[i-1].Temperature_F * 8)
+                    return 770 - (that.lines.data()[i-1].Temperature_F * 8)
                 }
             })
 			.attr("x2", function (d, i) {                
@@ -149,7 +180,7 @@ class Chart {
                 if(year == "2018" && day == 1){
                     day = 32;
                 }                
-                return (day * 15) + 50; 
+                return (day * 23) + 50; 
             })
 			.attr("x1", function(d, i) {
                 let date;
@@ -157,7 +188,7 @@ class Chart {
                     date = d.created_in;
                 }
                 else{
-                    date = lines.data()[i-1].created_in;
+                    date = that.lines.data()[i-1].created_in;
                 }
                 let date_list = date.split(" ");
                 let year = parseFloat(date_list[0].split("-")[0]);
@@ -173,9 +204,10 @@ class Chart {
                 if(year == "2018" && day == 1){
                     day = 32
                 }                
-                return (day * 15) + 50;
+                return (day * 23) + 50;
             })
 			.append("title")
-			.text(d=>d.Temperature_F);
+            .text(d=>d.Temperature_F);
+            
     }
 }

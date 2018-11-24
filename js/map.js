@@ -14,8 +14,9 @@ class Map {
         this.mapData = data;
         this.chart = chart;
         this.chartCount = 0;
-        this.lineChartColors = ["Black", "Blue", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
+        this.lineChartColors = ["Blue", "Orange", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
         this.previousNames = [];
+        this.prevLines = null;
 
         this.cityData = [{x:87, y:221, n:"Eureka", c:"Humbolt"},{x:184, y:332, n:"Sacramento", c:"Sacramento"},
             {x:143, y:366, n:"San Francisco", c:"San Francisco"},{x:167, y:387, n:"San Jose", c:"Santa Clara"},
@@ -60,12 +61,13 @@ class Map {
             .on('click', function(d){
                 let filename = "data/csv_files/Averaged_" + d.n.replace(" ", "_") + ".csv";
                 
-                if(!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1)
+                if(true/*!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1*/)
                 {
                     console.log(that.chartCount);
-                    let c_count = that.chartCount;
+                    let c_count = that.chartCount;                    
                     d3.csv(filename).then((chartData) => {
-                        that.chart.drawChart(chartData, d.n, that.lineChartColors[c_count]);
+                        if(that.chart.lines != null && that.chartCount > 2) { that.chart.lines.remove(); }
+                        that.chart.drawChart(chartData, d.n, that.lineChartColors[c_count > 0 ? 1 : 0]);
                     });
                     that.chartCount = that.chartCount + 1;
                 }
