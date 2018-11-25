@@ -36,21 +36,35 @@ class Map {
             .attr("fill", "white")
             .attr("id", d=>d.properties.name);
 
-        var that = this;
-        let gSVG = this.svg.append('g');
-        let circles = gSVG.selectAll('g')
+        //------------Draw City Name------------
+        let gCityLables = this.svg.append('g');
+        let cityLables = gCityLables.selectAll('text')
+            .data(this.cityData)
+            .enter();
+            
+        cityLables.append("text")
+            .text(d=>d.n)
+            .attr("x", d=>{
+                if(d.n=="San Francisco") return d.x+110;
+                else return d.x+138;})
+            .attr("y", d=>d.y-113)
+            .attr("class", "citylable");
+        
+        //------------Draw City Circles------------
+        let that = this;
+        let gCircles = this.svg.append('g');
+        let circles = gCircles.selectAll('circle')
                         .data(this.cityData)
-                        .enter()
-                        .append('g');
+                        .enter();
 
-        let cityCircles = circles.append("circle")
+        circles.append("circle")
             .attr("cx", d=>d.x+138)
             .attr("cy", d=>d.y-128)
             .attr("r", 5)
             .append("title")
             .text(d=>d.n);
         
-        circles.selectAll('circle')
+        gCircles.selectAll('circle')
             .on('mouseover', function(d) {
                 d3.select(this)
                     .style('fill', 'red')
@@ -74,34 +88,101 @@ class Map {
                 that.previousNames.push(d.n);
             });
         
+        //------------Draw Inner Legend------------
+        let gInLeg = this.svg.append('g');
+        let lRect = gInLeg.append("rect")
+            .attr("x", 80)
+            .attr("y", 290)
+            .attr("width", 170)
+            .attr("height", 100)
+            .classed("innerLegendRect",true);
+        
+        let tRect = gInLeg.append("rect")
+            .attr("x", 90)
+            .attr("y", 300)
+            .attr("width", 30)
+            .attr("height", 20)
+            .style("fill", "#0080ff");
+        let tText = gInLeg.append("text")
+            .text("Temperature")
+            .attr("x", 125)
+            .attr("y", 315)
+            .style("font-size", "10px");
+        let pRect = gInLeg.append("rect")
+            .attr("x", 90)
+            .attr("y", 320)
+            .attr("width", 30)
+            .attr("height", 20)
+            .style("fill", "#51e76b");
+        let pText = gInLeg.append("text")
+            .text("Pollution")
+            .attr("x", 125)
+            .attr("y", 335)
+            .style("font-size", "10px");
+        let hRect = gInLeg.append("rect")
+            .attr("x", 90)
+            .attr("y", 340)
+            .attr("width", 30)
+            .attr("height", 20)
+            .style("fill", "#9b3ab8");
+        let hText = gInLeg.append("text")
+            .text("Humidity")
+            .attr("x", 125)
+            .attr("y", 355)
+            .style("font-size", "10px");
+            
+        let exText = gInLeg.append("text")
+            .text("Proportions of averaged values")
+            .attr("x", 90)
+            .attr("y", 380)
+            .style("font-size", "10px");
+        //------------Legend----------------
         let lsvg = d3.select("#legend").append("svg")
             .attr("width", this.width)
             .attr("height", 100);
         
-        var defs = lsvg.append("defs");
- 
-        var linearGradient = defs.append("linearGradient")
+        let defs = lsvg.append("defs");
+        let linearGradient = defs.append("linearGradient")
             .attr("id","linearColor")
             .attr("x1","0%")
             .attr("y1","0%")
             .attr("x2","100%")
-            .attr("y2","0%");
-        var a = d3.rgb(255,255,0);
-        var b = d3.rgb(255,0,0);
-        var stop1 = linearGradient.append("stop")
+            .attr("y2","10%");
+        let a = d3.rgb(230,238,250);
+        let b = d3.rgb(21,69,149);
+        let stop1 = linearGradient.append("stop")
             .attr("offset","0%")
             .style("stop-color",a.toString());
          
-        var stop2 = linearGradient.append("stop")
+        let stop2 = linearGradient.append("stop")
             .attr("offset","100%")
+            .style("stop-color",b.toString());
         
-        var colorRect = lsvg.append("rect")
-            .attr("x", 15)
-            .attr("y", 50)
+        let colorRect = lsvg.append("rect")
+            .attr("x", 100)
+            .attr("y", 30)
             .attr("width", 400)
             .attr("height", 30)
             .style("fill","url(#" + linearGradient.attr("id") + ")");
-
+        
+        let gText = lsvg.append("g").classed("legnedtext", true);
+        let ltext = gText.append("text")
+            .text("0")
+            .attr("x", 110)
+            .attr("y", 28)
+            .attr("class", "tilestext");
+            
+        let rtext = gText.append("text")
+            .text("100")
+            .attr("x", 485)
+            .attr("y", 28)
+            .attr("class", "tilestext");
+        
+        let btext = gText.append("text")
+            .text("Avg. Fahrenheit")
+            .attr("x", 300)
+            .attr("y", 80)
+            .attr("class", "tilestext");
     }
     
     update() {
