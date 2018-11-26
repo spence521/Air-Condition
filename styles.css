@@ -465,3 +465,39 @@ i.europe {
     font-size: 80px;
     opacity: .4;
 }
+
+/*CLASS USED*/
+
+.rectpol { stroke: #3EBAE8;
+    stroke-width: 3;
+    fill: white;
+
+  }
+/*93C758*/
+
+.recttemp { stroke: #F78B0A;
+   stroke-width: 3;
+   fill: white;
+   }
+
+.recthum { stroke: #93C758;
+   stroke-width: 3;
+   fill: white;
+  }
+
+.recttempHi { stroke: #F78B0A;
+  stroke-width: 5;
+  fill: white;
+  }
+
+.rectpolHi { stroke: #3EBAE8;
+  stroke-width: 5;
+  fill: white;
+  font-size: 10;
+   }
+
+.recthumHi { stroke: #93C758;
+    stroke-width: 5;
+    fill: white;
+    font-size: 10;
+ }

@@ -22,6 +22,154 @@ class Map {
             {x:143, y:366, n:"San Francisco", c:"San Francisco"},{x:167, y:387, n:"San Jose", c:"Santa Clara"},
             {x:245, y:406, n:"Fresno", c:"Fresno"},{x:277, y:468, n:"Bakersfield", c:"Kern"},
             {x:282, y:523, n:"Los Angeles", c:"Los Angeles"},{x:324, y:567, n:"San Diego", c:"San Diego"}];
+
+        var svgContainer = d3.select("#date").append("svg")
+                   .attr("width", 800)
+                   .attr("height", 100);
+        this.selectedFeature = "Temperature";
+        let that = this;
+        svgContainer.append('rect')
+                        .attr("x", 10)
+                        .attr("y", 0)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .style("fill", '#F78B0A')
+                        .classed('recttemp','true')
+                        .on("click", function(d){ 
+                            svgContainer.select("recthum").classed("recttempHi", false);
+                            d3.select(this).classed("recttempHi", true);                      
+                            d3.select(this).style('fill', '#F78B0A');
+                            d3.select(".recthum").style('fill', 'white');
+                            d3.select(".rectpol").style('fill', 'white');
+                            that.selectedFeature = "Temperature";
+                            //that.drawMap();
+                            })
+                            .on('mouseover', function(d) {
+                                d3.select(this).style("cursor", "pointer"); 
+                            })
+                            .on('mouseout', function(d) {
+                                d3.select(this).style("cursor", "default"); 
+                            });
+
+
+        svgContainer.append('rect')
+                        .attr("x", 135)
+                        .attr("y", 0)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .classed('recthum','true')
+                        .on("click", function(d){ 
+                            svgContainer.select("rectemp").classed("recthumHi", false);
+                            d3.select(this).classed("recthumHi", true); 
+
+                            d3.select(this).style('fill', '#93C758');
+                            d3.select(".recttemp").style('fill', 'white');
+                            d3.select(".rectpol").style('fill', 'white');
+                            that.selectedFeature = "Humidity";
+                            //that.drawMap();
+                            })
+                            .on('mouseover', function(d) {
+                                d3.select(this).style("cursor", "pointer"); 
+                            })
+                            .on('mouseout', function(d) {
+                                d3.select(this).style("cursor", "default"); 
+                            });
+
+        svgContainer.append('rect')
+                        .attr("x", 260)
+                        .attr("y", 0)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .classed('rectpol','true')
+                        .on("click", function(d){ 
+                            svgContainer.select("recthum").classed("rectpolHi", false);
+                            d3.select(this).classed("rectpolHi", true);                      
+
+                            d3.select(this).style('fill', '#3EBAE8');
+                            d3.select(".recttemp").style('fill', 'white');
+                            d3.select(".recthum").style('fill', 'white');
+                            that.selectedFeature = "Pollution";
+                            //that.drawMap();
+                            })
+                            .on('mouseover', function(d) {
+                                d3.select(this).style("cursor", "pointer"); 
+                            })
+                            .on('mouseout', function(d) {
+                                d3.select(this).style("cursor", "default"); 
+                            });
+                        //.on('click', function (d) {
+                            //   d3.select(this).classed("recthumHi", true);})
+                        //.on('click', function (d){
+                            //   d3.select(this).classed("recthumHi", false);})
+
+
+
+
+        svgContainer.append('text')
+                        .text('Pollution')
+                        .attr("x", 290)
+                        .attr("y", 25)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .on("click", function(d){ 
+                            d3.select(".rectpol").style('fill', '#3EBAE8');
+                            d3.select(".recttemp").style('fill', 'white');
+                            d3.select(".recthum").style('fill', 'white');
+                            that.selectedFeature = "Pollution";
+                            //that.drawMap();
+                            })
+                        .on('mouseover', function(d) {
+                            //d3.select(".rectpol").style('fill', '#3EBAE8');
+                            d3.select(this).style("cursor", "pointer"); 
+                        })
+                        .on('mouseout', function(d) {
+                            //d3.select(".rectpol").style('fill', 'white');
+                            d3.select(this).style("cursor", "default"); 
+                        });
+
+        svgContainer.append('text')
+                        .text('Humidity')
+                        .attr("x", 165)
+                        .attr("y", 25)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .on("click", function(d){ 
+                            d3.select(".recthum").style('fill', '#93C758');
+                            d3.select(".recttemp").style('fill', 'white');
+                            d3.select(".rectpol").style('fill', 'white');
+                            that.selectedFeature = "Humidity";
+                            //that.drawMap();
+                            })
+                        .on('mouseover', function(d) {
+                            //d3.select(".recthum").style('fill', '#93C758');
+                            d3.select(this).style("cursor", "pointer"); 
+                        })
+                        .on('mouseout', function(d) {
+                            //d3.select(".recthum").style('fill', 'white');
+                            d3.select(this).style("cursor", "default"); 
+                        });
+
+        svgContainer.append('text')
+                        .text('Temperature')
+                        .attr("x", 25)
+                        .attr("y", 25)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .on("click", function(d){                      
+                            d3.select(".recttemp").style('fill', '#F78B0A');
+                            d3.select(".recthum").style('fill', 'white');
+                            d3.select(".rectpol").style('fill', 'white');
+                            that.selectedFeature = "Temperature";
+                            //that.drawMap();
+                            })
+                        .on('mouseover', function(d) {
+                            //d3.select(".recttemp").style('fill', '#F78B0A');
+                                d3.select(this).style("cursor", "pointer"); 
+                        })
+                        .on('mouseout', function(d) {
+                            //d3.select(".recttemp").style('fill', 'white');
+                            d3.select(this).style("cursor", "default"); 
+                        });
     }
 
     drawMap() {
@@ -74,10 +222,10 @@ class Map {
             })
             .on('click', function(d){
                 let filename = "data/csv_files/Averaged_" + d.n.replace(" ", "_") + ".csv";
-                
-                if(true/*!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1*/)
+                console.log(that.selectedFeature);
+                if(that.selectedFeature == "Temperature"/*!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1*/)
                 {
-                    console.log(that.chartCount);
+                    console.log(that.selectedFeature);
                     let c_count = that.chartCount;                    
                     d3.csv(filename).then((chartData) => {
                         if(that.chart.lines != null && that.chartCount > 2) { that.chart.lines.remove(); }
@@ -85,7 +233,15 @@ class Map {
                     });
                     that.chartCount = that.chartCount + 1;
                 }
-                that.previousNames.push(d.n);
+                else if(that.selectedFeature == "Humidity")
+                {
+
+                }
+                else //that means it is Pollution
+                {
+
+                }
+                //that.previousNames.push(d.n);
             });
         
         //------------Draw Inner Legend------------
