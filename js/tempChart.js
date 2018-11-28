@@ -32,6 +32,28 @@ class TempChart {
         this.flag = false;
     }
 
+
+    condition(average){
+    if (average<15){
+       return 'Very healthy'
+    }
+    if(average<20 && average>15){
+       return 'Healthy'
+    }
+    if (average<50 && average>20){
+      return 'Caution'
+    }
+    if (average<100 && average>50){
+      return 'Unhealthy'
+    }
+    if (average<100 && average>50){
+      return 'Very Unhealthy'
+    }
+
+   }
+
+
+
     drawChart(data, cityName, color){
         console.log(color);
         let that = this;
@@ -123,7 +145,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -131,7 +153,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -139,8 +161,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
-        
+
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -148,8 +170,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-       
-            
+
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -157,7 +179,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -166,7 +188,7 @@ class TempChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-        
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -175,7 +197,7 @@ class TempChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-            
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -261,7 +283,13 @@ class TempChart {
             .text(d=>d.Temperature_F);
 
             //CODE FOR THE INFO BELOW CHART STARTS HERE
-            
+           //console.log(this.CityData);
+           //this.CityData.map(function(d,i){console.log(d.PM2_5_CF_ATM_ug_m3,i)});
+
+
+
+         //this.condition(89);
+
 
 
 
@@ -283,6 +311,8 @@ class TempChart {
                         .attr("width", 120)
                         .attr("height", 40)
                         .style("fill", color);
+
+
 
 
                         this.svg2.append('text').text('Population:')
@@ -323,8 +353,10 @@ class TempChart {
 
                         if (this.cityName==='San Diego'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('Good')
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -375,8 +407,11 @@ class TempChart {
 
                         if (this.cityName==='San Francisco'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('Bad')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -423,8 +458,11 @@ class TempChart {
 
                         if (this.cityName==='Bakersfield'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('Fair')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -471,8 +509,11 @@ class TempChart {
 
                         if (this.cityName==='Sacramento'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('VERY BAD')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -520,8 +561,11 @@ class TempChart {
 
                         if (this.cityName==='Los Angeles'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('VERY BAD')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -568,8 +612,11 @@ class TempChart {
 
                         if (this.cityName==='Fresno'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('VERY BAD')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -616,8 +663,11 @@ class TempChart {
 
                         if (this.cityName==='San Jose'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('VERY BAD')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -664,8 +714,11 @@ class TempChart {
 
                         if (this.cityName==='Eureka'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg2.append('text').text('VERY GOOD')
+
+                          this.svg2.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -765,8 +818,11 @@ class TempChart {
 
                               if (this.cityName==='San Diego'){
 
+                                var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                                console.log(totalSum/745);
 
-                                this.svg1.append('text').text('Good')
+
+                                this.svg1.append('text').text(this.condition(totalSum/745))
                                 .attr("x", 180)
                                 .attr("y", 55)
                                 .attr("width", 120)
@@ -813,8 +869,11 @@ class TempChart {
 
                         if (this.cityName==='San Francisco'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('Bad')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -861,8 +920,11 @@ class TempChart {
 
                         if (this.cityName==='Bakersfield'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('Fair')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -909,8 +971,11 @@ class TempChart {
 
                         if (this.cityName==='Sacramento'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('VERY BAD')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -958,8 +1023,11 @@ class TempChart {
 
                         if (this.cityName==='Los Angeles'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('VERY BAD')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -1006,8 +1074,11 @@ class TempChart {
 
                         if (this.cityName==='Fresno'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('VERY BAD')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -1054,8 +1125,11 @@ class TempChart {
 
                         if (this.cityName==='San Jose'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('VERY BAD')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -1102,8 +1176,11 @@ class TempChart {
 
                         if (this.cityName==='Eureka'){
 
+                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                          console.log(totalSum/745);
 
-                          this.svg1.append('text').text('VERY GOOD')
+
+                          this.svg1.append('text').text(this.condition(totalSum/745))
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
