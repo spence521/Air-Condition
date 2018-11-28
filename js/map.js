@@ -1,7 +1,7 @@
 
 class Map {
 
-    constructor(data, chart) {
+    constructor(data, tempChart, humidityChart, pollutionChart) {
         this.width = 600;
         this.height = 500;
         this.svg = d3.select("#map").append("svg").attr("width", this.width).attr("height", this.height);
@@ -12,7 +12,9 @@ class Map {
         this.path = d3.geoPath().projection(this.projection);
         
         this.mapData = data;
-        this.chart = chart;
+        this.tempChart = tempChart;
+        this.humidityChart = humidityChart;
+        this.pollutionChart = pollutionChart;
         this.chartCount = 0;
         this.lineChartColors = ["Blue", "Orange", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
         this.previousNames = [];
@@ -28,6 +30,7 @@ class Map {
                    .attr("height", 100);
         this.selectedFeature = "Temperature";
         let that = this;
+
         svgContainer.append('rect')
                         .attr("x", 10)
                         .attr("y", 0)
@@ -42,6 +45,9 @@ class Map {
                             d3.select(".recthum").style('fill', 'white');
                             d3.select(".rectpol").style('fill', 'white');
                             that.selectedFeature = "Temperature";
+                            document.getElementById("myTempSVG").style.display = "block";   
+                            document.getElementById("myHumiditySVG").style.display = "none";
+                            document.getElementById("myPollutionSVG").style.display = "none"; 
                             //that.drawMap();
                             })
                             .on('mouseover', function(d) {
@@ -50,8 +56,6 @@ class Map {
                             .on('mouseout', function(d) {
                                 d3.select(this).style("cursor", "default"); 
                             });
-
-
         svgContainer.append('rect')
                         .attr("x", 135)
                         .attr("y", 0)
@@ -66,6 +70,9 @@ class Map {
                             d3.select(".recttemp").style('fill', 'white');
                             d3.select(".rectpol").style('fill', 'white');
                             that.selectedFeature = "Humidity";
+                            document.getElementById("myTempSVG").style.display = "none";
+                            document.getElementById("myHumiditySVG").style.display = "block";
+                            document.getElementById("myPollutionSVG").style.display = "none"; 
                             //that.drawMap();
                             })
                             .on('mouseover', function(d) {
@@ -74,7 +81,6 @@ class Map {
                             .on('mouseout', function(d) {
                                 d3.select(this).style("cursor", "default"); 
                             });
-
         svgContainer.append('rect')
                         .attr("x", 260)
                         .attr("y", 0)
@@ -89,6 +95,9 @@ class Map {
                             d3.select(".recttemp").style('fill', 'white');
                             d3.select(".recthum").style('fill', 'white');
                             that.selectedFeature = "Pollution";
+                            document.getElementById("myTempSVG").style.display = "none";
+                            document.getElementById("myHumiditySVG").style.display = "none";
+                            document.getElementById("myPollutionSVG").style.display = "block"; 
                             //that.drawMap();
                             })
                             .on('mouseover', function(d) {
@@ -103,52 +112,6 @@ class Map {
                             //   d3.select(this).classed("recthumHi", false);})
 
 
-
-
-        svgContainer.append('text')
-                        .text('Pollution')
-                        .attr("x", 290)
-                        .attr("y", 25)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .on("click", function(d){ 
-                            d3.select(".rectpol").style('fill', '#3EBAE8');
-                            d3.select(".recttemp").style('fill', 'white');
-                            d3.select(".recthum").style('fill', 'white');
-                            that.selectedFeature = "Pollution";
-                            //that.drawMap();
-                            })
-                        .on('mouseover', function(d) {
-                            //d3.select(".rectpol").style('fill', '#3EBAE8');
-                            d3.select(this).style("cursor", "pointer"); 
-                        })
-                        .on('mouseout', function(d) {
-                            //d3.select(".rectpol").style('fill', 'white');
-                            d3.select(this).style("cursor", "default"); 
-                        });
-
-        svgContainer.append('text')
-                        .text('Humidity')
-                        .attr("x", 165)
-                        .attr("y", 25)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .on("click", function(d){ 
-                            d3.select(".recthum").style('fill', '#93C758');
-                            d3.select(".recttemp").style('fill', 'white');
-                            d3.select(".rectpol").style('fill', 'white');
-                            that.selectedFeature = "Humidity";
-                            //that.drawMap();
-                            })
-                        .on('mouseover', function(d) {
-                            //d3.select(".recthum").style('fill', '#93C758');
-                            d3.select(this).style("cursor", "pointer"); 
-                        })
-                        .on('mouseout', function(d) {
-                            //d3.select(".recthum").style('fill', 'white');
-                            d3.select(this).style("cursor", "default"); 
-                        });
-
         svgContainer.append('text')
                         .text('Temperature')
                         .attr("x", 25)
@@ -160,6 +123,9 @@ class Map {
                             d3.select(".recthum").style('fill', 'white');
                             d3.select(".rectpol").style('fill', 'white');
                             that.selectedFeature = "Temperature";
+                            document.getElementById("myTempSVG").style.display = "block";
+                            document.getElementById("myHumiditySVG").style.display = "none";
+                            document.getElementById("myPollutionSVG").style.display = "none"; 
                             //that.drawMap();
                             })
                         .on('mouseover', function(d) {
@@ -168,6 +134,54 @@ class Map {
                         })
                         .on('mouseout', function(d) {
                             //d3.select(".recttemp").style('fill', 'white');
+                            d3.select(this).style("cursor", "default"); 
+                        });
+        svgContainer.append('text')
+                        .text('Humidity')
+                        .attr("x", 165)
+                        .attr("y", 25)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .on("click", function(d){ 
+                            d3.select(".recthum").style('fill', '#93C758');
+                            d3.select(".recttemp").style('fill', 'white');
+                            d3.select(".rectpol").style('fill', 'white');
+                            that.selectedFeature = "Humidity";
+                            document.getElementById("myTempSVG").style.display = "none";
+                            document.getElementById("myHumiditySVG").style.display = "block";
+                            document.getElementById("myPollutionSVG").style.display = "none"; 
+                            //that.drawMap();
+                            })
+                        .on('mouseover', function(d) {
+                            //d3.select(".recthum").style('fill', '#93C758');
+                            d3.select(this).style("cursor", "pointer"); 
+                        })
+                        .on('mouseout', function(d) {
+                            //d3.select(".recthum").style('fill', 'white');
+                            d3.select(this).style("cursor", "default"); 
+                        });
+        svgContainer.append('text')
+                        .text('Pollution')
+                        .attr("x", 290)
+                        .attr("y", 25)
+                        .attr("width", 120)
+                        .attr("height", 40)
+                        .on("click", function(d){ 
+                            d3.select(".rectpol").style('fill', '#3EBAE8');
+                            d3.select(".recttemp").style('fill', 'white');
+                            d3.select(".recthum").style('fill', 'white');
+                            that.selectedFeature = "Pollution";
+                            document.getElementById("myTempSVG").style.display = "none";
+                            document.getElementById("myHumiditySVG").style.display = "none";
+                            document.getElementById("myPollutionSVG").style.display = "block"; 
+                            //that.drawMap();
+                            })
+                        .on('mouseover', function(d) {
+                            //d3.select(".rectpol").style('fill', '#3EBAE8');
+                            d3.select(this).style("cursor", "pointer"); 
+                        })
+                        .on('mouseout', function(d) {
+                            //d3.select(".rectpol").style('fill', 'white');
                             d3.select(this).style("cursor", "default"); 
                         });
     }
@@ -223,16 +237,23 @@ class Map {
             .on('click', function(d){
                 let filename = "data/csv_files/Averaged_" + d.n.replace(" ", "_") + ".csv";
                 console.log(that.selectedFeature);
-                if(that.selectedFeature == "Temperature"/*!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1*/)
-                {
+               // if(that.selectedFeature == "Temperature"/*!(that.previousNames.indexOf(d.n) > -1) && that.chartCount < 1*/)
+                //{
                     console.log(that.selectedFeature);
                     let c_count = that.chartCount;                    
                     d3.csv(filename).then((chartData) => {
-                        if(that.chart.lines != null && that.chartCount > 2) { that.chart.lines.remove(); }
-                        that.chart.drawChart(chartData, d.n, that.lineChartColors[c_count > 0 ? 1 : 0]);
+                        if(that.tempChart.lines != null && that.chartCount > 2) { that.tempChart.lines.remove(); }
+                        that.tempChart.drawChart(chartData, d.n, that.lineChartColors[c_count > 0 ? 1 : 0]);
+                        
+                        if(that.humidityChart.lines != null && that.chartCount > 2) { that.humidityChart.lines.remove(); }
+                        that.humidityChart.drawChart(chartData, d.n, that.lineChartColors[c_count > 0 ? 1 : 0]);
+                        
+                        if(that.pollutionChart.lines != null && that.chartCount > 2) { that.pollutionChart.lines.remove(); }
+                        that.pollutionChart.drawChart(chartData, d.n, that.lineChartColors[c_count > 0 ? 1 : 0]);
                     });
+                    
                     that.chartCount = that.chartCount + 1;
-                }
+                /*}
                 else if(that.selectedFeature == "Humidity")
                 {
 
@@ -240,7 +261,7 @@ class Map {
                 else //that means it is Pollution
                 {
 
-                }
+                }*/
                 //that.previousNames.push(d.n);
             });
         

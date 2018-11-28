@@ -1,9 +1,10 @@
-class Chart {
+class PollutionChart {
 
     constructor() {
         this.width = 800;
         this.height = 500;
-		this.svg = d3.select("#waves").append("svg").attr("width", this.width).attr("height", this.height);
+        this.svg = d3.select("#waves").append("svg").attr("width", this.width).attr("height", this.height).attr('id', 'myPollutionSVG').style("display", "none");
+        //this.svg.style.display = "none";
 		/*this.projection = d3.geoMercator() 
 		  .center([-119.0, 37.5])
 		  .scale(2000)
@@ -154,13 +155,13 @@ class Chart {
 
         that.cityLines = that.lines.append("line")
             .style("stroke", color)
-            .attr("y2", (d, i)=>770 - (d.Temperature_F * 8))
+            .attr("y2", (d, i)=>770 - (d.PM2_5_CF_ATM_ug_m3 * 20))
             .attr("y1", function(d, i) {
                 if(i < 1){
-                    return 770 - (d.Temperature_F * 8);
+                    return 770 - (d.PM2_5_CF_ATM_ug_m3 * 20);
                 }
                 else{
-                    return 770 - (that.lines.data()[i-1].Temperature_F * 8)
+                    return 770 - (that.lines.data()[i-1].PM2_5_CF_ATM_ug_m3 * 20)
                 }
             })
 			.attr("x2", function (d, i) {                
@@ -207,7 +208,7 @@ class Chart {
                 return (day * 23) + 50;
             })
 			.append("title")
-            .text(d=>d.Temperature_F);
+            .text(d=>d.PM2_5_CF_ATM_ug_m3);
             
     }
 }
