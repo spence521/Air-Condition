@@ -16,7 +16,7 @@ class Map {
         this.humidityChart = humidityChart;
         this.pollutionChart = pollutionChart;
         this.chartCount = 0;
-        this.lineChartColors = ["Blue", "Orange", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
+        this.lineChartColors = ["Purple", "Red", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
         this.previousNames = [];
         this.prevLines = null;
 

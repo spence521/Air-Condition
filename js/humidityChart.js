@@ -104,24 +104,24 @@ class HumidityChart {
 
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 15)
-            .text("0 %")
+            .attr("y", this.height - 25)
+            .text("0%")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
         
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 120)
-            .text("25 %")
+            .attr("y", this.height - 138)
+            .text("25%")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
         
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 239.5)
-            .text("50 %")
+            .attr("y", this.height - 257.5)
+            .text("50%")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
@@ -129,8 +129,8 @@ class HumidityChart {
         
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 359)
-            .text("75 %")
+            .attr("y", this.height - 377)
+            .text("75%")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
@@ -138,11 +138,38 @@ class HumidityChart {
             
         gSVG.append("text")
             .attr("x", 20)
-            .attr("y", this.height - 479)
-            .text("100 %")
+            .attr("y", this.height - 490)
+            .text("100%")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
+        
+        gSVG.append("line")
+            .style("stroke", "grey")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 140)
+            .attr("y2", this.height - 140)
+            .style("stroke-width", 0.5)
+            .style("stroke-opacity", 0.5);
+        
+        gSVG.append("line")
+            .style("stroke", "grey")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 259.5)
+            .attr("y2", this.height - 259.5)
+            .style("stroke-width", 0.5)
+            .style("stroke-opacity", 0.5);
+            
+        gSVG.append("line")
+            .style("stroke", "grey")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 379)
+            .attr("y2", this.height - 379)
+            .style("stroke-width", 0.5)
+            .style("stroke-opacity", 0.5);
         
         
 		that.lines = gSVG.selectAll('g')
@@ -164,13 +191,13 @@ class HumidityChart {
 
         that.cityLines = that.lines.append("line")
             .style("stroke", color)
-            .attr("y2", (d, i)=>479 - (d.Humidity_ * 4.97))
+            .attr("y2", (d, i)=>480 - (d.Humidity_ * 4.79))
             .attr("y1", function(d, i) {
                 if(i < 1){
-                    return 479 - (d.Humidity_ * 4.97);
+                    return 480 - (d.Humidity_ * 4.79);
                 }
                 else{
-                    return 479 - (that.lines.data()[i-1].Humidity_ * 4.97)
+                    return 480 - (that.lines.data()[i-1].Humidity_ * 4.79)
                 }
             })
 			.attr("x2", function (d, i) {                

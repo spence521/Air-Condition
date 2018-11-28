@@ -103,37 +103,73 @@ class PollutionChart {
             .attr("fill", "black");*/
 
         gSVG.append("text")
-            .attr("x", 20)
-            .attr("y", this.height - 51)
-            .text("40F")
+            .attr("x", 11)
+            .attr("y", this.height - 25)
+            .text("0 PM2.5")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+        
+        gSVG.append("text")
+            .attr("x", 6)
+            .attr("y", this.height - 138)
+            .text("55 PM2.5")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+        
+        gSVG.append("text")
+            .attr("x", 1)
+            .attr("y", this.height - 257.5)
+            .text("110 PM2.5")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
         
         
         gSVG.append("text")
-            .attr("x", 20)
-            .attr("y", this.height - 186)
-            .text("57.5F")
+            .attr("x", 1)
+            .attr("y", this.height - 377)
+            .text("165 PM2.5")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-        gSVG.append("text")
-            .attr("x", 20)
-            .attr("y", this.height - 321)
-            .text("75F")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "10px")
-            .attr("fill", "black");
+       
             
         gSVG.append("text")
-            .attr("x", 20)
-            .attr("y", this.height - 456)
-            .text("92.5F")
+            .attr("x", 1)
+            .attr("y", this.height - 490)
+            .text("220 PM2.5")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
+        
+        gSVG.append("line")
+            .style("stroke", "grey")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 140)
+            .attr("y2", this.height - 140)
+            .style("stroke-width", 0.5)
+            .style("stroke-opacity", 0.5);
+        
+        gSVG.append("line")
+            .style("stroke", "grey")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 259.5)
+            .attr("y2", this.height - 259.5)
+            .style("stroke-width", 0.5)
+            .style("stroke-opacity", 0.5);
+            
+        gSVG.append("line")
+            .style("stroke", "grey")
+            .attr("x1", 51)
+            .attr("x2", this.width - 1)
+            .attr("y1", this.height - 379)
+            .attr("y2", this.height - 379)
+            .style("stroke-width", 0.5)
+            .style("stroke-opacity", 0.5);
         
         
 		that.lines = gSVG.selectAll('g')
@@ -155,13 +191,13 @@ class PollutionChart {
 
         that.cityLines = that.lines.append("line")
             .style("stroke", color)
-            .attr("y2", (d, i)=>770 - (d.PM2_5_CF_ATM_ug_m3 * 20))
+            .attr("y2", (d, i)=>480 - (d.PM2_5_CF_ATM_ug_m3 * 479 / 220))
             .attr("y1", function(d, i) {
                 if(i < 1){
-                    return 770 - (d.PM2_5_CF_ATM_ug_m3 * 20);
+                    return 480 - (d.PM2_5_CF_ATM_ug_m3 * 479 / 220);
                 }
                 else{
-                    return 770 - (that.lines.data()[i-1].PM2_5_CF_ATM_ug_m3 * 20)
+                    return 480 - (that.lines.data()[i-1].PM2_5_CF_ATM_ug_m3 * 479 / 220)
                 }
             })
 			.attr("x2", function (d, i) {                
