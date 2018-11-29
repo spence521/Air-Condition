@@ -15,6 +15,8 @@ class TempChart {
                   .attr("width", 400)
                   .attr("height", 500);
 
+
+
 //ENDS HERE
 
     /*this.projection = d3.geoMercator() 
@@ -51,6 +53,10 @@ class TempChart {
     }
 
    }
+
+
+
+
 
 
 
@@ -222,7 +228,9 @@ class TempChart {
                         lines=newlines.merge(lines);*/
 
 
-
+                        this.div = d3.select("#waves").append("div")
+                         .attr("class", "tooltip")
+                         .style("opacity", 0);
 
 
         that.cityLines = that.lines.append("line")
@@ -279,13 +287,28 @@ class TempChart {
                 }
                 return (day * 23) + 50;
             })
+            .on('mouseover', function(d){
+                //d3.select(".recthum").style('fill', '#93C758');
+                //this.div.html(d.Temperature_F + "<br/>"  + d.Humidity);
+                //console.log(console.log(d.Temperature_F));
+              })
+                //console.log('jiji')})
+            .on('mouseout', function(d) {
+                    //d3.select(".recthum").style('fill', 'white');
+                    //d3.select(this).style("cursor", "default")
+                    //console.log('jojo');
+                })
 			.append("title")
             .text(d=>d.Temperature_F);
 
             //CODE FOR THE INFO BELOW CHART STARTS HERE
            //console.log(this.CityData);
            //this.CityData.map(function(d,i){console.log(d.PM2_5_CF_ATM_ug_m3,i)});
-
+           /*.on('mouseover', function(d) {
+               //d3.select(".recthum").style('fill', '#93C758');
+               //d3.select(this).style("cursor", "pointer");
+               console.log('jiji');
+           })*/
 
 
          //this.condition(89);
@@ -293,944 +316,957 @@ class TempChart {
 
 
 
-                        if (this.flag===true){
-
-                        this.svg2.selectAll('text').remove();
-
-                        this.svg2.append('text').text(this.cityName)
-                        .attr("x", 150)
-                        .attr("y", 25)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .attr('font-size',"20px")
-                        .style("fill", color);
+         //CODE FOR THE INFO BELOW CHART STARTS HERE
+        //console.log(this.CityData);
+        //this.CityData.map(function(d,i){console.log(d.PM2_5_CF_ATM_ug_m3,i)});
 
-                        this.svg2.append('text').text('Air:')
-                        .attr("x", 150)
-                        .attr("y", 55)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .style("fill", color);
 
 
+      //this.condition(89);
 
 
-                        this.svg2.append('text').text('Population:')
-                        .attr("x", 150)
-                        .attr("y", 75)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .style("fill", color);
 
 
-                        this.svg2.append('text').text('Registered vehicles:')
-                        .attr("x", 150)
-                        .attr("y", 95)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .style("fill", color);
+                     if (this.flag===true){
 
+                     this.svg2.selectAll('text').remove();
 
-                        this.svg2.append('text').text('Nbr. Industries:')
-                        .attr("x", 150)
-                        .attr("y", 115)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .style("fill", color);
+                     this.svg2.append('text').text(this.cityName)
+                     .attr("x", 150)
+                     .attr("y", 25)
+                     .attr("width", 120)
+                     .attr("height", 40)
+                     .attr('font-size',"30px")
+                     .style("fill", color)
+                     .style('fontWeight', 'bold');
 
-                        this.svg2.append('text').text('Commute time:')
-                        .attr("x", 150)
-                        .attr("y", 135)
-                        .attr("width", 120)
-                        .attr("height", 40)
-                        .style("fill", color);
+                     this.svg2.append('text').text('Air:')
+                     .attr("x", 150)
+                     .attr("y", 55)
+                     .attr("width", 120)
+                     .attr("height", 40);
+                     //.style("fill", color);
 
 
-            //CITIES INFORMATION
 
-            //SAN DIEGO
 
+                     this.svg2.append('text').text('Population:')
+                     .attr("x", 150)
+                     .attr("y", 75)
+                     .attr("width", 120)
+                     .attr("height", 40);
+                     //.style("fill", color);
 
-                        if (this.cityName==='San Diego'){
 
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
+                     this.svg2.append('text').text('Registered vehicles:')
+                     .attr("x", 150)
+                     .attr("y", 95)
+                     .attr("width", 120)
+                     .attr("height", 40);
+                     //.style("fill", color);
 
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
 
-                          this.svg2.append('text').text('1,410,000')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
+                     this.svg2.append('text').text('Nbr. Industries:')
+                     .attr("x", 150)
+                     .attr("y", 115)
+                     .attr("width", 120)
+                     .attr("height", 40);
+                     //.style("fill", color);
 
+                     this.svg2.append('text').text('Commute time:')
+                     .attr("x", 150)
+                     .attr("y", 135)
+                     .attr("width", 120)
+                     .attr("height", 40);
+                     //.style("fill", color);
 
-                          this.svg2.append('text').text('2,240,181')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
 
+         //CITIES INFORMATION
 
-                          this.svg2.append('text').text('150,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
+         //SAN DIEGO
 
-                          this.svg2.append('text').text('22.2 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
 
-
-
-
-                        }
-
-            //SAN FRANCISCO
-
-                        if (this.cityName==='San Francisco'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
+                     if (this.cityName==='San Diego'){
 
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('870,887')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('411,267')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('200,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('31.4 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //BAKERSFIELD
-
-                        if (this.cityName==='Bakersfield'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('376,371')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('442,603')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('60,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text(' 21.1 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //SACRAMENTO
-
-                        if (this.cityName==='Sacramento'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('501,901')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('954,879')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('72,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text(' 23.9 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-
-            //LOS ANGELES
-
-                        if (this.cityName==='Los Angeles'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('3,000,980')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('6,490,537')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('600,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('29.8 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //FRESNO
-
-                        if (this.cityName==='Fresno'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('522,021')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('521,231')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('75,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('20.2 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //SAN JOSE
-
-                        if (this.cityName==='San Jose'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('1,000,300')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('1,390,562')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('220,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('29.3 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //EUREKA
-
-                        if (this.cityName==='Eureka'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg2.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('27,177')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('20,000')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('5,500')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('11.6 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-
-
-
-                        }
-
-                             if (this.flag===false){
-                              this.svg1.append('text').text(this.cityName)
-                              .attr("x", 150)
-                              .attr("y", 25)
-                              .attr("width", 120)
-                              .attr("height", 40)
-                              .attr('font-size',"20px")
-                              .style("fill", color)
-                              this.flag = true;
-
-                              this.svg1.append('text').text('Air:')
-                              .attr("x", 150)
-                              .attr("y", 55)
-                              .attr("width", 120)
-                              .attr("height", 40)
-                              .style("fill", color);
-
-
-                              this.svg1.append('text').text('Population:')
-                              .attr("x", 150)
-                              .attr("y", 75)
-                              .attr("width", 120)
-                              .attr("height", 40)
-                              .style("fill", color);
-
-
-                              this.svg1.append('text').text('Registered vehicles:')
-                              .attr("x", 150)
-                              .attr("y", 95)
-                              .attr("width", 120)
-                              .attr("height", 40)
-                              .style("fill", color);
-
-
-                              this.svg1.append('text').text('Nbr. Industries:')
-                              .attr("x", 150)
-                              .attr("y", 115)
-                              .attr("width", 120)
-                              .attr("height", 40)
-                              .style("fill", color);
-
-                              this.svg1.append('text').text('Commute time:')
-                              .attr("x", 150)
-                              .attr("y", 135)
-                              .attr("width", 120)
-                              .attr("height", 40)
-                              .style("fill", color);
-
-            //SAN DIEGO
-
-                              if (this.cityName==='San Diego'){
-
-                                var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                                console.log(totalSum/745);
-
-
-                                this.svg1.append('text').text(this.condition(totalSum/745))
-                                .attr("x", 180)
-                                .attr("y", 55)
-                                .attr("width", 120)
-                                .attr("height", 40)
-                                .attr('font-size',"30px")
-                                .style("fill", color);
-
-                                this.svg1.append('text').text('1,410,000')
-                                .attr("x", 230)
-                                .attr("y", 75)
-                                .attr("width", 120)
-                                .attr("height", 40)
-                                .attr('font-size',"20px")
-                                .style("fill", color);
-
-
-                                this.svg1.append('text').text('2,240,181')
-                                .attr("x", 298)
-                                .attr("y", 95)
-                                .attr("width", 120)
-                                .attr("height", 40)
-                                .attr('font-size',"20px")
-                                .style("fill", color);
-
-
-                                this.svg1.append('text').text('150,000')
-                                .attr("x", 265)
-                                .attr("y", 115)
-                                .attr("width", 120)
-                                .attr("height", 40)
-                                .attr('font-size',"20px")
-                                .style("fill", color);
-
-                                this.svg1.append('text').text('22.2 min.')
-                                .attr("x", 263)
-                                .attr("y", 135)
-                                .attr("width", 120)
-                                .attr("height", 40)
-                                .attr('font-size',"20px")
-                                .style("fill", color);
-
-                                }
-            //SAN FRANCISCO
-
-                        if (this.cityName==='San Francisco'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('870,887')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('411,267')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('200,000')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('31.4 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //BAKERSFIELD
-
-                        if (this.cityName==='Bakersfield'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('376,371')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('442,603')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('60,000')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text(' 21.1 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //SACRAMENTO
-
-                        if (this.cityName==='Sacramento'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('501,901')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('954,879')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('72,000')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text(' 23.9 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-
-            //LOS ANGELES
-
-                        if (this.cityName==='Los Angeles'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('3,000,980')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('6,490,537')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('600,000')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('29.8 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //FRESNO
-
-                        if (this.cityName==='Fresno'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('522,021')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('521,231')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('75,000')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('20.2 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //SAN JOSE
-
-                        if (this.cityName==='San Jose'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('1,000,300')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('1,390,562')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('220,000')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('29.3 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //EUREKA
-
-                        if (this.cityName==='Eureka'){
-
-                          var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
-                          console.log(totalSum/745);
-
-
-                          this.svg1.append('text').text(this.condition(totalSum/745))
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('27,177')
-                          .attr("x", 235)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('20,000')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg1.append('text').text('5,500')
-                          .attr("x", 265)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg1.append('text').text('11.6 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-
-
-
-
-
-                            }
-
-            //ENDS HERE
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('1,410,000')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('2,240,181')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('150,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text('22.2 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+
+
+                     }
+
+         //SAN FRANCISCO
+
+                     if (this.cityName==='San Francisco'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('870,887')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('411,267')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('200,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text('31.4 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //BAKERSFIELD
+
+                     if (this.cityName==='Bakersfield'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('376,371')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('442,603')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('60,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text(' 21.1 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //SACRAMENTO
+
+                     if (this.cityName==='Sacramento'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('501,901')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('954,879')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('72,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text(' 23.9 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+
+         //LOS ANGELES
+
+                     if (this.cityName==='Los Angeles'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('3,000,980')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('6,490,537')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('600,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text('29.8 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //FRESNO
+
+                     if (this.cityName==='Fresno'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('522,021')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('521,231')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('75,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text('20.2 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //SAN JOSE
+
+                     if (this.cityName==='San Jose'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('1,000,300')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('1,390,562')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('220,000')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text('29.3 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //EUREKA
+
+                     if (this.cityName==='Eureka'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg2.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg2.append('text').text('27,177')
+                       .attr("x", 230)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('20,000')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg2.append('text').text('5,500')
+                       .attr("x", 261)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg2.append('text').text('11.6 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+
+
+
+                     }
+
+                          if (this.flag===false){
+                           this.svg1.append('text').text(this.cityName)
+                           .attr("x", 150)
+                           .attr("y", 25)
+                           .attr("width", 120)
+                           .attr("height", 40)
+                           .attr('font-size',"30px")
+                           .style("fill", color)
+                           this.flag = true;
+
+                           this.svg1.append('text').text('Air:')
+                           .attr("x", 150)
+                           .attr("y", 55)
+                           .attr("width", 120)
+                           .attr("height", 40);
+                           //.style("fill", color);
+
+
+                           this.svg1.append('text').text('Population:')
+                           .attr("x", 150)
+                           .attr("y", 75)
+                           .attr("width", 120)
+                           .attr("height", 40);
+                           //.style("fill", color);
+
+
+                           this.svg1.append('text').text('Registered vehicles:')
+                           .attr("x", 150)
+                           .attr("y", 95)
+                           .attr("width", 120)
+                           .attr("height", 40);
+                           //.style("fill", color);
+
+
+                           this.svg1.append('text').text('Nbr. Industries:')
+                           .attr("x", 150)
+                           .attr("y", 115)
+                           .attr("width", 120)
+                           .attr("height", 40);
+                           //.style("fill", color);
+
+                           this.svg1.append('text').text('Commute time:')
+                           .attr("x", 150)
+                           .attr("y", 135)
+                           .attr("width", 120)
+                           .attr("height", 40);
+                           //.style("fill", color);
+
+         //SAN DIEGO
+
+                           if (this.cityName==='San Diego'){
+
+                             var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                             console.log(totalSum/745);
+
+
+                             this.svg1.append('text').text(this.condition(totalSum/745))
+                             .attr("x", 180)
+                             .attr("y", 55)
+                             .attr("width", 120)
+                             .attr("height", 40)
+                             .attr('font-size',"30px")
+                             .style("fill", color);
+
+                             this.svg1.append('text').text('1,410,000')
+                             .attr("x", 230)
+                             .attr("y", 75)
+                             .attr("width", 120)
+                             .attr("height", 40)
+                             .attr('font-size',"20px")
+                             .style("fill", color);
+
+
+                             this.svg1.append('text').text('2,240,181')
+                             .attr("x", 298)
+                             .attr("y", 95)
+                             .attr("width", 120)
+                             .attr("height", 40)
+                             .attr('font-size',"20px")
+                             .style("fill", color);
+
+
+                             this.svg1.append('text').text('150,000')
+                             .attr("x", 265)
+                             .attr("y", 115)
+                             .attr("width", 120)
+                             .attr("height", 40)
+                             .attr('font-size',"20px")
+                             .style("fill", color);
+
+                             this.svg1.append('text').text('22.2 min.')
+                             .attr("x", 263)
+                             .attr("y", 135)
+                             .attr("width", 120)
+                             .attr("height", 40)
+                             .attr('font-size',"20px")
+                             .style("fill", color);
+
+                             }
+         //SAN FRANCISCO
+
+                     if (this.cityName==='San Francisco'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text('870,887')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px");
+                       //.style("fill", color);
+
+
+                       this.svg1.append('text').text('411,267')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('200,000')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text('31.4 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //BAKERSFIELD
+
+                     if (this.cityName==='Bakersfield'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg1.append('text').text('376,371')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('442,603')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('60,000')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text(' 21.1 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //SACRAMENTO
+
+                     if (this.cityName==='Sacramento'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg1.append('text').text('501,901')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('954,879')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('72,000')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text(' 23.9 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+
+         //LOS ANGELES
+
+                     if (this.cityName==='Los Angeles'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg1.append('text').text('3,000,980')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('6,490,537')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('600,000')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text('29.8 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //FRESNO
+
+                     if (this.cityName==='Fresno'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg1.append('text').text('522,021')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('521,231')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('75,000')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text('20.2 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //SAN JOSE
+
+                     if (this.cityName==='San Jose'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg1.append('text').text('1,000,300')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('1,390,562')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('220,000')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text('29.3 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+         //EUREKA
+
+                     if (this.cityName==='Eureka'){
+
+                       var totalSum = d3.sum(this.CityData.map(function(d){return d.PM2_5_CF_ATM_ug_m3}));
+                       console.log(totalSum/745);
+
+
+                       this.svg1.append('text').text(this.condition(totalSum/745))
+                       .attr("x", 180)
+                       .attr("y", 55)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"30px");
+                       //.style("fill", color);
+
+                       this.svg1.append('text').text('27,177')
+                       .attr("x", 235)
+                       .attr("y", 75)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('20,000')
+                       .attr("x", 298)
+                       .attr("y", 95)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+
+                       this.svg1.append('text').text('5,500')
+                       .attr("x", 265)
+                       .attr("y", 115)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+
+                       this.svg1.append('text').text('11.6 min.')
+                       .attr("x", 263)
+                       .attr("y", 135)
+                       .attr("width", 120)
+                       .attr("height", 40)
+                       .attr('font-size',"20px")
+                       .style("fill", color);
+                     }
+
+
+
+
+
+
+                         }
+
+         //ENDS HERE
+
 
     }
 }
