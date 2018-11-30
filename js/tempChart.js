@@ -7,8 +7,8 @@ class TempChart {
 		this.svg = d3.select("#waves").append("svg").attr("width", this.width).attr("height", this.height).attr('id', 'myTempSVG');
 
 //CODE FOR THE INFO BELOW CHART STARTS HERE
-	
-    
+
+
 
     this.svg2 = d3.select("#reco").append("svg")
                   .attr("width", 400)
@@ -16,7 +16,7 @@ class TempChart {
 	this.svgLegend = d3.select("#reco").append("svg")
                    .attr("width", this.width/2)
                    .attr("height", this.height);
-	
+
 
 //ENDS HERE
 
@@ -30,10 +30,29 @@ class TempChart {
         this.flag = true;
     }
 
+    condition(average){
+    if (average<15){
+       return 'Very healthy'
+    }
+    if(average<20 && average>15){
+       return 'Healthy'
+    }
+    if (average<50 && average>20){
+      return 'Caution'
+    }
+    if (average<100 && average>50){
+      return 'Unhealthy'
+    }
+    if (average<100 && average>50){
+      return 'Very Unhealthy'
+    }
+
+   }
+
     drawChart(cityName, color){
         //console.log(cityName);
         let that = this;
-		
+
         let gSVG = this.svg.append('g');
         //left
         gSVG.append("line")
@@ -94,7 +113,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -102,7 +121,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -110,8 +129,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
-        
+
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -119,8 +138,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-       
-            
+
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -128,7 +147,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -137,7 +156,7 @@ class TempChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-        
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -146,7 +165,7 @@ class TempChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-            
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -156,14 +175,14 @@ class TempChart {
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
 
-		
+
         //CODE FOR THE INFO BELOW CHART STARTS HERE
-            
+
 
     	}
 
 	drawInfo(cityName, color){
-		
+
           if (this.flag==true){
 
                 this.svg2.selectAll('text').remove();
@@ -371,7 +390,7 @@ class TempChart {
                         if (cityName=='Sacramento'){
 
 
-                          this.svg2.append('text').text('VERY BAD')
+                          this.svg2.append('text').text('Very Bad')
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -420,7 +439,7 @@ class TempChart {
                         if (cityName=='Los_Angeles'){
 
 
-                          this.svg2.append('text').text('VERY BAD')
+                          this.svg2.append('text').text('Very Bad')
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -468,7 +487,7 @@ class TempChart {
                         if (cityName=='Fresno'){
 
 
-                          this.svg2.append('text').text('VERY BAD')
+                          this.svg2.append('text').text('Very Bad')
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -516,7 +535,7 @@ class TempChart {
                         if (cityName=='San_Jose'){
 
 
-                          this.svg2.append('text').text('VERY BAD')
+                          this.svg2.append('text').text('Bad')
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -564,7 +583,7 @@ class TempChart {
                         if (cityName=='Eureka'){
 
 
-                          this.svg2.append('text').text('VERY GOOD')
+                          this.svg2.append('text').text('Very Good')
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
@@ -624,7 +643,7 @@ class TempChart {
 		this.svg.selectAll('g').remove();
 		this.svgLegend.selectAll("g").remove();
 		this.svg2.selectAll('text').remove();
-		
+
 		let gSVG = this.svg.append('g');
 		//left
         gSVG.append("line")
@@ -686,7 +705,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -694,7 +713,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -702,8 +721,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
-        
+
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -711,8 +730,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-       
-            
+
+
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -720,7 +739,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-        
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -729,7 +748,7 @@ class TempChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-        
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -738,7 +757,7 @@ class TempChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-            
+
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -776,13 +795,13 @@ class TempChart {
 		            .range([this.margin.left, this.width - this.margin.right]);
 
 		        gSVG = this.svg.append('g');
-		        
+
 				that.lines = gSVG.selectAll('line')
 		                        .data(CityData)
 		                        .enter()
 		                        //.append('g');
 
-				
+
 		        that.cityLines = that.lines.append("line")
 		            .style("stroke", color)
 		            .attr("y2", (d, i)=>480 - (d.Temperature_F * 479 / 60) + (35 * 479 / 60))
@@ -810,8 +829,8 @@ class TempChart {
 		                if(year == "2018" && day == 1){
 		                    day = 32;
 		                }
-						
-						
+
+
 						let delta = days[days.length-1] - days[0];
 		                return (day-days[0])*31/delta *23 +50;
 		            })
@@ -867,7 +886,7 @@ class TempChart {
 				this.drawInfo(last, lineChartColors[mark]);
 			else if(tail != "")
 				this.drawInfo(tail, lineChartColors[mark]);
-			
+
 			i ++;
 		}
 	}

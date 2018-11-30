@@ -486,14 +486,14 @@ i.europe {
 
 /*CLASS USED*/
 
-.rectpol { stroke: #3EBAE8;
+.rectpol { stroke: #7396EC;
     stroke-width: 3;
     fill: white;
 
   }
 /*93C758*/
 
-.recttemp { stroke: #F78B0A;
+.recttemp { stroke: #F17665;
    stroke-width: 3;
    fill: white;
    }
@@ -503,12 +503,12 @@ i.europe {
    fill: white;
   }
 
-.recttempHi { stroke: #F78B0A;
+.recttempHi { stroke: #F17665;
   stroke-width: 5;
   fill: white;
   }
 
-.rectpolHi { stroke: #3EBAE8;
+.rectpolHi { stroke: #7396EC;
   stroke-width: 5;
   fill: white;
   font-size: 10;
