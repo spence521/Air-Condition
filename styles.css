@@ -15,8 +15,8 @@ circle.selected-region {
     stroke: #122f3d;
 }
 
-circle.selected-country {
-    stroke-width: 3px;
+circle.selected {
+    stroke-width: 2px;
     stroke: #000000;
     opacity: 1;
 }
@@ -187,6 +187,12 @@ path.hidden {
     float: left;
 }
 
+.optionChart {
+    width: 1400px;
+    height: 50px;
+    margin: auto;
+    text-align: center;
+}
 .mapCharts {
     width: 600px;
     display: inline-block;
@@ -195,12 +201,12 @@ path.hidden {
 
 #map {
     width: 600px;
-    border:1px dashed #000
+    /*border:1px dashed #000*/
 }
 
 #legend {
     width: 600px;
-    border:1px dashed #000
+    /*border:1px dashed #000*/
 }
 
 .waveCharts {
@@ -212,12 +218,24 @@ path.hidden {
 #date {
     width: 800px;
     height: 100px;
-    border:1px dashed #000
+    /*border:1px dashed #000*/
+}
+
+.lineLegend {
+	border:2px dashed
+}
+.brush .selection {
+    fill-opacity: .5;
+}
+
+.lineChart{
+    stroke:#000;
+    stroke-dasharray: 4;
 }
 
 #waves {
     width: 800px;
-    border:1px dashed #000
+    /*border:1px dashed #000*/
 }
 
 .axis path,
@@ -501,16 +519,3 @@ i.europe {
     fill: white;
     font-size: 10;
  }
-
- div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 60px;
-    height: 28px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
-}
