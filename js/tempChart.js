@@ -7,8 +7,8 @@ class TempChart {
 		this.svg = d3.select("#waves").append("svg").attr("width", this.width).attr("height", this.height).attr('id', 'myTempSVG');
 
 //CODE FOR THE INFO BELOW CHART STARTS HERE
-
-
+	
+    
 
     this.svg2 = d3.select("#reco").append("svg")
                   .attr("width", 400)
@@ -16,6 +16,17 @@ class TempChart {
 	this.svgLegend = d3.select("#reco").append("svg")
                    .attr("width", this.width/2)
                    .attr("height", this.height);
+	
+		this.InfoArray = {
+			"San_Diego":{"Air":"GOOD", "Pop":"1,410,000", "Reg":"2,240,181", "Ind":"150,000", "Com":"22.2 min."},
+			"Los_Angeles":{"Air":"VERY BAD", "Pop":"3,000,980", "Reg":"6,490,5371", "Ind":"600,000", "Com":"29.8 min."},
+			"Bakersfield":{"Air":"FAIR", "Pop":"376,371", "Reg":"442,603", "Ind":"600,000", "Com":"21.1 min."},
+			"Fresno":{"Air":"VERY BAD", "Pop":"522,021", "Reg":"521,231", "Ind":"75,000", "Com":"20.2 min."},
+			"San_Jose":{"Air":"VERY BAD", "Pop":"1,000,300", "Reg":"1,390,562", "Ind":"220,000", "Com":"29.3 min."},
+			"San_Francisco":{"Air":"BAD", "Pop":"870,887", "Reg":"411,267", "Ind":"200,000", "Com":"31.4 min."},
+			"Sacramento":{"Air":"VERY BAD", "Pop":"501,901", "Reg":"954,879", "Ind":"72,000", "Com":"23.9 min."},
+			"Eureka":{"Air":"VERY GOOD", "Pop":"27,177", "Reg":"20,000", "Ind":"5,500", "Com":"11.6 min."}
+		};
 
 
 //ENDS HERE
@@ -30,29 +41,10 @@ class TempChart {
         this.flag = true;
     }
 
-    condition(average){
-    if (average<15){
-       return 'Very healthy'
-    }
-    if(average<20 && average>15){
-       return 'Healthy'
-    }
-    if (average<50 && average>20){
-      return 'Caution'
-    }
-    if (average<100 && average>50){
-      return 'Unhealthy'
-    }
-    if (average<100 && average>50){
-      return 'Very Unhealthy'
-    }
-
-   }
-
-    drawChart(cityName, color){
+    drawChart(){
         //console.log(cityName);
         let that = this;
-
+		
         let gSVG = this.svg.append('g');
         //left
         gSVG.append("line")
@@ -113,7 +105,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -121,7 +113,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -129,8 +121,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+        
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -138,8 +130,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+       
+            
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -147,7 +139,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -156,7 +148,7 @@ class TempChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -165,7 +157,7 @@ class TempChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+            
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -175,14 +167,14 @@ class TempChart {
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
 
-
+		
         //CODE FOR THE INFO BELOW CHART STARTS HERE
-
+            
 
     	}
 
 	drawInfo(cityName, color){
-
+		let that = this;
           if (this.flag==true){
 
                 this.svg2.selectAll('text').remove();
@@ -200,7 +192,7 @@ class TempChart {
                 .attr("y", 55)
                 .attr("width", 120)
                 .attr("height", 40)
-                .style("fill", color);
+                .style("fill", "gray");
 
 
                 this.svg2.append('text').text('Population:')
@@ -208,7 +200,7 @@ class TempChart {
                 .attr("y", 75)
                 .attr("width", 120)
                 .attr("height", 40)
-                .style("fill", color);
+                .style("fill", "gray");
 
 
                 this.svg2.append('text').text('Registered vehicles:')
@@ -216,7 +208,7 @@ class TempChart {
                 .attr("y", 95)
                 .attr("width", 120)
                 .attr("height", 40)
-                .style("fill", color);
+                .style("fill", "gray");
 
 
                 this.svg2.append('text').text('Nbr. Industries:')
@@ -224,426 +216,67 @@ class TempChart {
                 .attr("y", 115)
                 .attr("width", 120)
                 .attr("height", 40)
-                .style("fill", color);
+                .style("fill", "gray");
 
                 this.svg2.append('text').text('Commute time:')
                 .attr("x", 150)
                 .attr("y", 135)
                 .attr("width", 120)
                 .attr("height", 40)
-                .style("fill", color);
+                .style("fill", "gray");
 
 
             //CITIES INFORMATION
-
-            //SAN DIEGO
-
-
-                        if (cityName=='San_Diego'){
-
-
-                          this.svg2.append('text').text('Good')
+			for(let city in this.InfoArray){
+				if(cityName == city){
+					this.svg2.append('text').text(this.InfoArray[city]["Air"])
                           .attr("x", 180)
                           .attr("y", 55)
                           .attr("width", 120)
                           .attr("height", 40)
                           .attr('font-size',"30px")
                           .style("fill", color);
-
-                          this.svg2.append('text').text('1,410,000')
-                          .attr("x", 230)
+                    this.svg2.append('text').text(this.InfoArray[city]["Pop"])
+                          .attr("x", 240)
                           .attr("y", 75)
                           .attr("width", 120)
                           .attr("height", 40)
                           .attr('font-size',"20px")
                           .style("fill", color);
-
-
-                          this.svg2.append('text').text('2,240,181')
-                          .attr("x", 298)
+                    this.svg2.append('text').text(this.InfoArray[city]["Reg"])
+                          .attr("x", 308)
                           .attr("y", 95)
                           .attr("width", 120)
                           .attr("height", 40)
                           .attr('font-size',"20px")
                           .style("fill", color);
-
-
-                          this.svg2.append('text').text('150,000')
-                          .attr("x", 261)
+                    this.svg2.append('text').text(this.InfoArray[city]["Ind"])
+                          .attr("x", 271)
                           .attr("y", 115)
                           .attr("width", 120)
                           .attr("height", 40)
                           .attr('font-size',"20px")
                           .style("fill", color);
-
-                          this.svg2.append('text').text('22.2 min.')
-                          .attr("x", 263)
+                    this.svg2.append('text').text(this.InfoArray[city]["Com"])
+                          .attr("x", 273)
                           .attr("y", 135)
                           .attr("width", 120)
                           .attr("height", 40)
                           .attr('font-size',"20px")
                           .style("fill", color);
-
-
-
-
-                        }
-
-            //SAN FRANCISCO
-
-                        if (cityName=='San_Francisco'){
-
-
-                          this.svg2.append('text').text('Bad')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('870,887')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('411,267')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('200,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('31.4 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //BAKERSFIELD
-
-                        if (cityName=='Bakersfield'){
-
-
-                          this.svg2.append('text').text('Fair')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('376,371')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('442,603')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('60,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text(' 21.1 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //SACRAMENTO
-
-                        if (cityName=='Sacramento'){
-
-
-                          this.svg2.append('text').text('Very Bad')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('501,901')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('954,879')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('72,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text(' 23.9 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-
-            //LOS ANGELES
-
-                        if (cityName=='Los_Angeles'){
-
-
-                          this.svg2.append('text').text('Very Bad')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('3,000,980')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('6,490,537')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('600,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('29.8 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //FRESNO
-
-                        if (cityName=='Fresno'){
-
-
-                          this.svg2.append('text').text('Very Bad')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('522,021')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('521,231')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('75,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('20.2 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //SAN JOSE
-
-                        if (cityName=='San_Jose'){
-
-
-                          this.svg2.append('text').text('Bad')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('1,000,300')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('1,390,562')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('220,000')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('29.3 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-            //EUREKA
-
-                        if (cityName=='Eureka'){
-
-
-                          this.svg2.append('text').text('Very Good')
-                          .attr("x", 180)
-                          .attr("y", 55)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"30px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('27,177')
-                          .attr("x", 230)
-                          .attr("y", 75)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('20,000')
-                          .attr("x", 298)
-                          .attr("y", 95)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-
-                          this.svg2.append('text').text('5,500')
-                          .attr("x", 261)
-                          .attr("y", 115)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-
-                          this.svg2.append('text').text('11.6 min.')
-                          .attr("x", 263)
-                          .attr("y", 135)
-                          .attr("width", 120)
-                          .attr("height", 40)
-                          .attr('font-size',"20px")
-                          .style("fill", color);
-                        }
-
-
-
-
-                }
-
-            //ENDS HERE
-
-    }
+				}
+			}
+		}
+	}
 
 	update(last, data, citys, days){
 		let lineChartColors = ["Purple", "Red", "Green", "Orange", "Violet", "Indigo", "Blue", "Black"];
 		let that = this;
-		let cnt = 0;
 
 		this.svg.selectAll('g').remove();
 		this.svgLegend.selectAll("g").remove();
 		this.svg2.selectAll('text').remove();
-
+		
 		let gSVG = this.svg.append('g');
 		//left
         gSVG.append("line")
@@ -705,7 +338,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -713,7 +346,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -721,8 +354,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+        
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -730,8 +363,8 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+       
+            
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -739,7 +372,7 @@ class TempChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -748,7 +381,7 @@ class TempChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -757,7 +390,7 @@ class TempChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+            
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -770,14 +403,15 @@ class TempChart {
 		let i = 0;
 		let p = 0;
 		let tail = "";
-		let mark = 0;
+		let lmark = 0;
+		let tmark = 0;
 		for(let c in citys){
 			if(citys[c] == true){
 				if(last != "none" && last == c){
-					mark = i;
+					lmark = i;
 				}else{
 					tail = c;
-					mark = i;
+					tmark = i;
 				}
 				let iData = this.allData[c.replace(" ", "_")];
 				let CityData = [];
@@ -795,13 +429,13 @@ class TempChart {
 		            .range([this.margin.left, this.width - this.margin.right]);
 
 		        gSVG = this.svg.append('g');
-
+		        
 				that.lines = gSVG.selectAll('line')
 		                        .data(CityData)
 		                        .enter()
 		                        //.append('g');
 
-
+				
 		        that.cityLines = that.lines.append("line")
 		            .style("stroke", color)
 		            .attr("y2", (d, i)=>480 - (d.Temperature_F * 479 / 60) + (35 * 479 / 60))
@@ -829,8 +463,8 @@ class TempChart {
 		                if(year == "2018" && day == 1){
 		                    day = 32;
 		                }
-
-
+						
+						
 						let delta = days[days.length-1] - days[0];
 		                return (day-days[0])*31/delta *23 +50;
 		            })
@@ -874,8 +508,8 @@ class TempChart {
 			            .attr("fill", color);
 					gleg.append("line")
 						.style("stroke", color)
-			            .attr("x1", 200)
-			            .attr("x2", 300)
+			            .attr("x1", 180)
+			            .attr("x2", 280)
 			            .attr("y1", 20*(p+1)-8)
 			            .attr("y2", 20*(p+1)-8)
 			            .style("stroke-width", 2);
@@ -883,10 +517,10 @@ class TempChart {
 			}
 
 			if(last != "none")
-				this.drawInfo(last, lineChartColors[mark]);
+				this.drawInfo(last, lineChartColors[lmark]);
 			else if(tail != "")
-				this.drawInfo(tail, lineChartColors[mark]);
-
+				this.drawInfo(tail, lineChartColors[tmark]);
+			
 			i ++;
 		}
 	}

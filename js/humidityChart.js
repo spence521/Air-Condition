@@ -12,17 +12,17 @@ class HumidityChart {
 		  .translate([this.width/2, this.height/2]);*/
         this.path = d3.geoPath().projection(this.projection);
         this.margin = {top: 50, right: 20, bottom: 50, left: 100};
-
+		
         //this.CityData;
         //this.cityName;
         this.lines = null;
         this.cityLines = null;
     }
-
-    drawChart(cityName, color){
+    
+    drawChart(){
         //console.log(color);
         let that = this;
-
+        
         let gSVG = this.svg.append('g');
         //left
         gSVG.append("line")
@@ -37,8 +37,8 @@ class HumidityChart {
             .attr("x1", 51)
             .attr("x2", this.width - 1)
             .attr("y1", 1)
-            .attr("y2", 1)
-        //right
+            .attr("y2", 1) 
+        //right           
         gSVG.append("line")
             .style("stroke", "black")
             .attr("x1", this.width - 1)
@@ -60,7 +60,7 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+            
         gSVG.append("text")
             .attr("x", ((this.width - 51) / 2) + 25)
             .attr("y", this.height - 10)
@@ -84,7 +84,7 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -92,7 +92,7 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -100,8 +100,8 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+        
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -109,8 +109,8 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+       
+            
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -118,7 +118,7 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -127,7 +127,7 @@ class HumidityChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -136,7 +136,7 @@ class HumidityChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+            
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -145,10 +145,8 @@ class HumidityChart {
             .attr("y2", this.height - 379)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+                    
     }
-
-    
 
 	update(data, citys, days){
 		let lineChartColors = ["Purple", "Red", "Green", "Orange", "Violet", "Indigo", "Blue", "Black"];
@@ -218,7 +216,7 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 138)
@@ -226,7 +224,7 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 257.5)
@@ -234,8 +232,8 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+        
+        
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 377)
@@ -243,8 +241,8 @@ class HumidityChart {
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-
-
+       
+            
         gSVG.append("text")
             .attr("x", 20)
             .attr("y", this.height - 490)
@@ -253,7 +251,7 @@ class HumidityChart {
             .attr("font-size", "10px")
             .attr("fill", "black");
 
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -262,7 +260,7 @@ class HumidityChart {
             .attr("y2", this.height - 140)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+        
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -271,7 +269,7 @@ class HumidityChart {
             .attr("y2", this.height - 259.5)
             .style("stroke-width", 0.5)
             .style("stroke-opacity", 0.5);
-
+            
         gSVG.append("line")
             .style("stroke", "grey")
             .attr("x1", 51)
@@ -283,7 +281,7 @@ class HumidityChart {
 
 		let i = 0;
 		for(let c in citys){
-			if(citys[c] == true){
+			if(citys[c] == true){				
 				let iData = this.allData[c.replace(" ", "_")];
 				let CityData = [];
 				let color = lineChartColors[i];
@@ -300,7 +298,7 @@ class HumidityChart {
 		            .range([this.margin.left, this.width - this.margin.right]);
 
 		        gSVG = this.svg.append('g');
-
+		        
 				that.lines = gSVG.selectAll('line')
 		                        .data(CityData)
 		                        .enter()
@@ -318,7 +316,7 @@ class HumidityChart {
 	                    return 480 - (that.lines.data()[i-1].Humidity_ * 4.79)
 	                }
 	            })
-				.attr("x2", function (d, i) {
+				.attr("x2", function (d, i) {                
 	                //console.log(d.created_in);
 	                let date = d.created_in;
 	                let date_list = date.split(" ");
@@ -334,7 +332,7 @@ class HumidityChart {
 
 	                if(year == "2018" && day == 1){
 	                    day = 32;
-	                }
+	                }                
 
 					let delta = days[days.length-1] - days[0];
 		            return (day-days[0])*31/delta *23 +50;
@@ -360,7 +358,7 @@ class HumidityChart {
 
 	                if(year == "2018" && day == 1){
 	                    day = 32
-	                }
+	                }                
 
 					let delta = days[days.length-1] - days[0];
 		           return (day-days[0])*31/delta *23 +50;
