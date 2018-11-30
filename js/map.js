@@ -1,7 +1,7 @@
 
 class myMap {
 
-    constructor(data,    mapData, tempChart, humidityChart, pollutionChart) {
+    constructor(data, mapData, tempChart, humidityChart, pollutionChart) {
         this.width = 600;
         this.height = 500;
         
@@ -55,18 +55,19 @@ class myMap {
         let svgContainer = this.svgContainer;
 
         let that = this;
-
+        
         svgContainer.append('rect')
                         .attr("x", 10)
                         .attr("y", 0)
                         .attr("width", 120)
                         .attr("height", 40)
-                        .style("fill", '#F78B0A')
+                        .style("fill", '#EA403A')
                         .classed('recttemp','true')
                         .on("click", function(d){ 
+							svgContainer.selectAll("text").style("fill", "black");
                             svgContainer.select("recthum").classed("recttempHi", false);
                             d3.select(this).classed("recttempHi", true);                      
-                            d3.select(this).style('fill', '#F78B0A');
+                            d3.select(this).style('fill', '#EA403A');
                             d3.select(".recthum").style('fill', 'white');
                             d3.select(".rectpol").style('fill', 'white');
                             that.selectedFeature = "Temperature";
@@ -89,6 +90,7 @@ class myMap {
                         .attr("height", 40)
                         .classed('recthum','true')
                         .on("click", function(d){ 
+							svgContainer.selectAll("text").style("fill", "black");
                             svgContainer.select("rectemp").classed("recthumHi", false);
                             d3.select(this).classed("recthumHi", true); 
 
@@ -115,6 +117,7 @@ class myMap {
                         .attr("height", 40)
                         .classed('rectpol','true')
                         .on("click", function(d){ 
+							svgContainer.selectAll("text").style("fill", "black");
                             svgContainer.select("recthum").classed("rectpolHi", false);
                             d3.select(this).classed("rectpolHi", true);                      
 
@@ -144,8 +147,11 @@ class myMap {
                         .attr("y", 25)
                         .attr("width", 120)
                         .attr("height", 40)
-                        .on("click", function(d){                      
-                            d3.select(".recttemp").style('fill', '#F78B0A');
+                        .style("fill", "white")
+                        .on("click", function(d){
+							that.svgContainer.selectAll("text").style("fill", "black");
+                            d3.select(this).style("fill", "white");
+                            d3.select(".recttemp").style('fill', '#EA403A');
                             d3.select(".recthum").style('fill', 'white');
                             d3.select(".rectpol").style('fill', 'white');
                             that.selectedFeature = "Temperature";
@@ -155,11 +161,9 @@ class myMap {
                             that.update();
                             })
                         .on('mouseover', function(d) {
-                            //d3.select(".recttemp").style('fill', '#F78B0A');
-                                d3.select(this).style("cursor", "pointer"); 
+                            d3.select(this).style("cursor", "pointer"); 
                         })
                         .on('mouseout', function(d) {
-                            //d3.select(".recttemp").style('fill', 'white');
                             d3.select(this).style("cursor", "default"); 
                         });
         svgContainer.append('text')
@@ -168,7 +172,9 @@ class myMap {
                         .attr("y", 25)
                         .attr("width", 120)
                         .attr("height", 40)
-                        .on("click", function(d){ 
+                        .on("click", function(d){
+							that.svgContainer.selectAll("text").style("fill", "black");
+                            d3.select(this).style("fill", "white");
                             d3.select(".recthum").style('fill', '#93C758');
                             d3.select(".recttemp").style('fill', 'white');
                             d3.select(".rectpol").style('fill', 'white');
@@ -192,7 +198,9 @@ class myMap {
                         .attr("y", 25)
                         .attr("width", 120)
                         .attr("height", 40)
-                        .on("click", function(d){ 
+                        .on("click", function(d){
+							that.svgContainer.selectAll("text").style("fill", "black");
+                            d3.select(this).style("fill", "white");
                             d3.select(".rectpol").style('fill', '#3EBAE8');
                             d3.select(".recttemp").style('fill', 'white');
                             d3.select(".recthum").style('fill', 'white');
@@ -262,15 +270,15 @@ class myMap {
         if(that.selectedFeature == "Humidity") {
             colorScale = d3.scaleLinear()
                 .domain([minScale, maxScale])
-                .range([d3.rgb("#b8d4c0"), d3.rgb("green")]);
+                .range([d3.rgb("#B8D4C0"), d3.rgb("green")]);
         }else if(that.selectedFeature == "Temperature"){
             colorScale = d3.scaleLinear()
                 .domain([minScale, maxScale])
-                .range([d3.rgb("#b8d4c0"), d3.rgb("red")]);
+                .range([d3.rgb("#FCDEDC"), d3.rgb("red")]);
         }else{
             colorScale = d3.scaleLinear()
                 .domain([minScale, maxScale])
-                .range([d3.rgb("#b8d4c0"), d3.rgb("blue")]);
+                .range([d3.rgb("#D1D1FE"), d3.rgb("blue")]);
         }
         
         let legendQuantile = d3.legendColor()
@@ -443,6 +451,7 @@ class myMap {
 
     update() {
         let that = this;
+        
         let svgMap = this.svgMap;
         if(that.selectedDays.length==0){
             that.selectedDays = that.date;
@@ -485,15 +494,15 @@ class myMap {
         if(that.selectedFeature == "Humidity") {
             colorScale = d3.scaleLinear()
                 .domain([minScale, maxScale])
-                .range([d3.rgb("#b8d4c0"), d3.rgb("green")]);
+                .range([d3.rgb("#B8D4C0"), d3.rgb("green")]);
         }else if(that.selectedFeature == "Temperature"){
             colorScale = d3.scaleLinear()
                 .domain([minScale, maxScale])
-                .range([d3.rgb("#b8d4c0"), d3.rgb("red")]);
+                .range([d3.rgb("#FCDEDC"), d3.rgb("red")]);
         }else{
             colorScale = d3.scaleLinear()
                 .domain([minScale, maxScale])
-                .range([d3.rgb("#b8d4c0"), d3.rgb("blue")]);
+                .range([d3.rgb("#D1D1FE"), d3.rgb("blue")]);
         }
         
         let legendQuantile = d3.legendColor()
@@ -539,8 +548,8 @@ class myMap {
             .style("fill", (d, i) => colorScale(arrAvg[i]))
             .attr("id", d=>d.n.replace(" ", "_"))
             .classed("selected", d=>{ 
-				return that.selectedCitys[d.n.replace(" ", "_")];
-			})
+                return that.selectedCitys[d.n.replace(" ", "_")];
+            })
             .append("title")
             .text(d=>d.n);
 
